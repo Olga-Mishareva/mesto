@@ -4,6 +4,7 @@
 /* ----- PAGE ----- */
 
 @import url(../blocks/page/page.css);
+@import url(../blocks/page/__list/page__list.css);
 
 /* ----- HEADER ----- */
 
@@ -29,8 +30,11 @@
 
 /* ----- ELEMENT ----- */
 
+@import url(../blocks/elements/elements.css);
+@import url(../blocks/place-grid/place-grid.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__image/element__image.css);
+@import url(../blocks/element/__title-container/element__title-container.css);
 @import url(../blocks/element/__title/element__title.css);
 @import url(../blocks/element/__stroke/element__stroke.css);
 
