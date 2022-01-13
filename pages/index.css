@@ -30,8 +30,8 @@
 
 /* ----- ELEMENT ----- */
 
-@import url(../blocks/elements/elements.css);
 @import url(../blocks/place-grid/place-grid.css);
+@import url(../blocks/place-grid/__elements/place-grid__elements.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__image/element__image.css);
 @import url(../blocks/element/__title-container/element__title-container.css);
