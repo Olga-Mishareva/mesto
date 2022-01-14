@@ -12,3 +12,9 @@
   padding: 0;
   margin: 48px 36px 37px;
 }
+
+.popup__submit-button:hover {
+  opacity: 0.8;
+  transition: opacity .3s ease;
+}
+
