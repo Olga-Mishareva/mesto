@@ -4,3 +4,9 @@
   align-items: baseline;
   margin-bottom: 16px;
 }
+
+@media screen and (max-width: 475px) {
+  .profile__name-container {
+    margin-bottom: 14px;
+  }
+}

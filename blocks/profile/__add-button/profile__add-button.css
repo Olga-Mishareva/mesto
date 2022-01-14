@@ -14,3 +14,15 @@
   opacity: 0.6;
   transition: opacity .3s ease;
 }
+
+@media screen and (max-width: 768px) {
+  .profile__add-button {
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .profile__add-button {
+    width: 282px;
+  }
+}

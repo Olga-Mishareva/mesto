@@ -4,3 +4,11 @@
   font-size: 42px;
   line-height: 48px;
 }
+
+@media screen and (max-width: 475px) {
+  .profile__name {
+    font-size: 27px;
+    line-height: 33px;
+    margin-right: 10px;
+  }
+}

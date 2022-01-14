@@ -4,3 +4,16 @@
   max-width: 880px;
   margin: 0 auto;
 }
+
+@media screen and (max-width: 920px) {
+  .header__container {
+    max-width: 90%;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .header__container {
+    max-width: 100%;
+    padding-bottom: 32px;
+  }
+}
