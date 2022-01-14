@@ -3,7 +3,7 @@
   min-height: 330px;
   margin: 0 auto;
   background-color: #ffffff;
-  position: absolute;
+  position: fixed;
   top: calc(100%/2 - 165px);
   left: calc(100%/2 - 215px);
   border-radius: 10px;
