@@ -24,8 +24,24 @@ closeBtn.addEventListener('click', closePopup);
 function formSubmitHandler(e) {
   e.preventDefault();
 
-  profileName.textContent = inputName.value;
-  profileInfo.textContent = inputInfo.value;
+  let name = inputName.value;
+  let info = inputInfo.value;
+
+  if(name.length !== 0 && name !== ' ') {
+    profileName.textContent = name;
+  }
+  else {
+    profileName.textContent = inputName.getAttribute('placeholder');
+    inputName.value = inputName.getAttribute('placeholder');
+  }
+
+  if(info.length !== 0 && info !== ' ') {
+    profileInfo.textContent = info;
+  }
+  else {
+    profileInfo.textContent = inputInfo.getAttribute('placeholder');
+    inputInfo.value = inputInfo.getAttribute('placeholder');
+  }
 
   closePopup();
 }
