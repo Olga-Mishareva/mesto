@@ -1,12 +1,11 @@
 .profile__name-container {
   display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  margin-bottom: 16px;
+  flex-direction: column;
 }
 
-@media screen and (max-width: 475px) {
+@media screen and (max-width: 540px) {
   .profile__name-container {
-    margin-bottom: 14px;
+    align-items: center;
   }
 }
+
