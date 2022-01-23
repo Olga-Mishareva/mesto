@@ -1,11 +1,6 @@
 .popup_opened {
   display: block;
-}
-
-.popup_opened::before {
-  content: "";
-  background-color: #000000;
-  opacity: .5;
+  background-color: rgba(0, 0, 0, .5);
   min-width: 100%;
   min-height: 100%;
   overflow: hidden;
@@ -13,5 +8,6 @@
   top: 0;
   left: 0;
 }
+
 
 
