@@ -84,13 +84,17 @@
     </footer>
 
     <div class="popup">
-      <form class="popup__container" action="#" id="save">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <input class="popup__input popup__input_type_name" type="text" placeholder="Мадам Икс">
-        <input class="popup__input popup__input_type_info" type="text" placeholder="Путешественница">
-        <button class="popup__submit-button" type="submit" form="save">Сохранить</button>
+      <div class="popup__container">
         <button class="popup__close-button" type="button"></button>
-      </form>
+
+        <form class="popup__form" name="profile-form" action="#" id="save">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input class="popup__input popup__input_type_name" type="text" name="profile-name" placeholder="Мадам Икс">
+          <input class="popup__input popup__input_type_info" type="text" name="profile-info" placeholder="Путешественница">
+          <button class="popup__submit-button" type="submit" form="save">Сохранить</button>
+        </form>
+
+      </div>
     </div>
   </div>
 
