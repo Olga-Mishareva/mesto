@@ -42,11 +42,11 @@ function formSubmitHandler(e) {
 
 editBtn.addEventListener('click', openPopup);
 closeBtn.addEventListener('click', closePopup);
-
 saveFormBnt.addEventListener('submit', formSubmitHandler);
-// xxx.addEventListener('keyup', evt => {
-//   if(evt.code === 'Enter') closePopup();
-// });
+
+document.addEventListener('keyup', evt => {
+  if(evt.code === 'Enter') formSubmitHandler(evt);
+});
 
 const initialCards = [
   {
