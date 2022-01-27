@@ -66,23 +66,27 @@ const cardsBox = document.querySelector('.place-grid__places');
 
 
 
-// initialCards.forEach(item => {
-//   const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
+initialCards.forEach(item => {
+  const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
+    initialCard.querySelector('.place__title').textContent = item.name;
+    initialCard.querySelector('.place__image').src = item.link;
+    initialCard.querySelector('.place__image').alt = item.name;
+    cardsBox.append(initialCard);
+    console.log(initialCard);
+});
+
+
+
+// function createInitialCards(elem) {
+
+//   elem.forEach(card => {
+//     const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
 //     initialCard.querySelector('.place__title').textContent = card.name;
 //     initialCard.querySelector('.place__image').src = card.link;
 //     cardsBox.append(initialCard);
-// });
+//   });
+// }
+
+// createInitialCards(initialCards);
 
 
-
-function createInitialCards(elem) {
-
-  elem.forEach(card => {
-    const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
-    initialCard.querySelector('.place__title').textContent = card.name;
-    initialCard.querySelector('.place__image').src = card.link;
-    cardsBox.append(initialCard);
-  });
-}
-
-createInitialCards(initialCards);
