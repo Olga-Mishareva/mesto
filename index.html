@@ -22,7 +22,7 @@
           <img class="profile__avatar" src="./images/thomas-reaubourg-uDA0XFT41-g-unsplash.jpg" alt="Фото профиля">
           <div class="profile__data">
             <div class="profile__name-container">
-              <h1 class="profile__name">Мадам Икс</h1>
+              <h1 class="profile__name">Миссис М</h1>
               <p class="profile__info">Путешественница</p>
             </div>
             <button class="profile__edit-button" type="button"></button>
@@ -98,10 +98,31 @@
       <p class="footer__copyright">&#169; 2022 Mesto Russia</p>
     </footer>
 
-    <div class="popup">
+    <div class="popup popup_edit-profile">
+      <!-- popup_edit-profile -->
+    </div>
+    <div class="popup popup_add-place">
+      <!-- popup_add-place -->
+    </div>
+    <div class="popup popup_show-image">
+      <!-- popup_show-image -->
+    </div>
+
+    <template id="page-popup">
       <div class="popup__container">
         <button class="popup__close-button" type="button"></button>
+        <form class="popup__form" name="profile-form" action="#" id="save">
+          <h2 class="popup__title"></h2>
+          <input class="popup__input popup__input_type_name" type="text" required name="profile-name">
+          <input class="popup__input popup__input_type_info" type="text" required name="profile-info">
+          <button class="popup__submit-button" type="submit" form="save"></button>
+        </form>
+      </div>
+    </template>
 
+    <!-- <div class="popup">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button"></button>
         <form class="popup__form" name="profile-form" action="#" id="save">
           <h2 class="popup__title">Редактировать профиль</h2>
           <input class="popup__input popup__input_type_name" type="text" required name="profile-name"
@@ -110,9 +131,11 @@
             placeholder="Путешественница">
           <button class="popup__submit-button" type="submit" form="save">Сохранить</button>
         </form>
-
       </div>
-    </div>
+    </div> -->
+
+
+
   </div>
 
   <script src="./scripts/index.js"></script>
