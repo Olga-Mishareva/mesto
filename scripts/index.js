@@ -32,3 +32,57 @@ editBtn.addEventListener('click', openPopup);
 closeBtn.addEventListener('click', closePopup);
 
 saveFormBnt.addEventListener('submit', formSubmitHandler);
+
+
+const initialCards = [
+  {
+    name: 'Гора Ахун',
+    link: './images/ana-kai-QXOl2IXJ_ow-unsplash.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: './images/daniil-silantev-fD7cXIFurSQ-unsplash.jpg'
+  },
+  {
+    name: 'Рыбачий полуостров',
+    link: './images/radik-sitdikov-48MxMepMwqc-unsplash.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: './images/daniil-silantev-h-M3O25tyvI-unsplash.jpg'
+  },
+  {
+    name: 'Ольхон',
+    link: './images/kir-simakov-OGc_X8PeikQ-unsplash.jpg'
+  },
+  {
+    name: 'Крым',
+    link: './images/nikolay-vorobyev-o7jIzNWvCRo-unsplash.jpg'
+  }
+]
+
+const cardTemplate = document.querySelector('#card').content;
+const cardsBox = document.querySelector('.place-grid__places');
+
+
+
+// initialCards.forEach(item => {
+//   const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
+//     initialCard.querySelector('.place__title').textContent = card.name;
+//     initialCard.querySelector('.place__image').src = card.link;
+//     cardsBox.append(initialCard);
+// });
+
+
+
+function createInitialCards(elem) {
+
+  elem.forEach(card => {
+    const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
+    initialCard.querySelector('.place__title').textContent = card.name;
+    initialCard.querySelector('.place__image').src = card.link;
+    cardsBox.append(initialCard);
+  });
+}
+
+createInitialCards(initialCards);
