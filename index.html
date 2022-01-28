@@ -98,29 +98,20 @@
       <p class="footer__copyright">&#169; 2022 Mesto Russia</p>
     </footer>
 
-    <div class="popup popup_edit-profile">
-      <!-- popup_edit-profile -->
-    </div>
-    <div class="popup popup_add-place">
-      <!-- popup_add-place -->
-    </div>
-    <div class="popup popup_show-image">
-      <!-- popup_show-image -->
-    </div>
 
-    <template id="page-popup">
+    <!-- <template id="page-popup">
       <div class="popup__container">
         <button class="popup__close-button" type="button"></button>
         <form class="popup__form" name="profile-form" action="#" id="save">
           <h2 class="popup__title"></h2>
-          <input class="popup__input popup__input_type_name" type="text" required name="profile-name">
-          <input class="popup__input popup__input_type_info" type="text" required name="profile-info">
+          <input class="popup__input popup__input_type_name" type="text" required name="profile-name" placeholder="">
+          <input class="popup__input popup__input_type_info" type="text" required name="profile-info" placeholder="">
           <button class="popup__submit-button" type="submit" form="save"></button>
         </form>
       </div>
-    </template>
+    </template> -->
 
-    <!-- <div class="popup">
+    <div class="popup popup_edit-profile">
       <div class="popup__container">
         <button class="popup__close-button" type="button"></button>
         <form class="popup__form" name="profile-form" action="#" id="save">
@@ -132,7 +123,25 @@
           <button class="popup__submit-button" type="submit" form="save">Сохранить</button>
         </form>
       </div>
-    </div> -->
+    </div>
+
+    <div class="popup popup_add-place">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button"></button>
+        <form class="popup__form" name="profile-form" action="#" id="save">
+          <h2 class="popup__title">Новое место</h2>
+          <input class="popup__input popup__input_type_name" type="text" required name="profile-name"
+            placeholder="Название">
+          <input class="popup__input popup__input_type_info" type="text" required name="profile-info"
+            placeholder="Ссылка на картинку">
+          <button class="popup__submit-button" type="submit" form="save">Создать</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_show-image">
+
+    </div>
 
 
 
