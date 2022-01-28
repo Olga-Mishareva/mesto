@@ -60,6 +60,8 @@ profileEditCloseBtn.addEventListener('click', function() {
 });
 
 cardAddCloseBtn.addEventListener('click', function() {
+  inputCard.value = '';
+  inputLink.value= '';
   closePopup(cardAddPopup);
 })
 
@@ -73,7 +75,7 @@ profileEditSaveBnt.addEventListener('submit', function() {
 
 profileEditPopup.addEventListener('keyup', (evt) => {
   if (evt.code === 'Enter') {
-    handleSubmitForm(evt);
+    handleProfileEditSubmit(evt);
     closePopup(profileEditPopup);
   }
 });
@@ -110,9 +112,11 @@ const initialCards = [
 const cardTemplate = document.querySelector('#card').content;
 const cardsBox = document.querySelector('.place-grid__places');
 
+
 // ---- функуции обработки карточек ----
 
 function renderInitialCards() {
+  removeCards();
   initialCards.forEach(createCard);
 }
 
@@ -124,38 +128,39 @@ function createCard(item) {
   cardsBox.append(initialCard);
 }
 
+function removeCards() {
+  const cards = document.querySelectorAll('.place');
+  cards.forEach(elem => {
+    elem.remove();
+  });
+}
+
 function addNewCard() {
+
   const newCard = {
     name: inputCard.value,
     link: inputLink.value
   };
 
   initialCards.unshift(newCard);
-  console.log(initialCards);
+  renderInitialCards();
+
+  // console.log(initialCards);
 }
 
-// function createNewCard(card, link) {
-//   createCard(card.value)
-
-
-//   console.log(inputLink.value);
-// }
 
 function handleCardAddSubmit(evt) {
   evt.preventDefault();
   addNewCard();
 }
 
-console.log(inputCard.value);
-console.log(inputLink.value);
-
 cardAddSaveBtn.addEventListener('submit', handleCardAddSubmit);
 
-// cardAddSaveBtn.addEventListener('submit', function() {
-//   addNewCard();
-//   console.log(inputCard.value);
-//   console.log(inputLink.value);
-// });
+cardAddSaveBtn.addEventListener('submit', function() {
+  inputCard.value = '';
+  inputLink.value= '';
+  closePopup(cardAddPopup);
+});
 
 renderInitialCards();
 
