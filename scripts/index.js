@@ -3,7 +3,7 @@
 const profileName = document.querySelector('.profile__name');
 const profileInfo = document.querySelector('.profile__info');
 const editBtn = document.querySelector('.profile__edit-button');
-const profileEditPopup = document.querySelector('.popup_edit-profile');
+const profileEditPopup = document.querySelector('.popup_type_edit-profile');
 const inputName = profileEditPopup.querySelector('.popup__input_type_name');
 const inputInfo = profileEditPopup.querySelector('.popup__input_type_info');
 const profileEditCloseBtn = profileEditPopup.querySelector('.popup__close-button');
@@ -11,7 +11,7 @@ const profileEditSaveBnt = profileEditPopup.querySelector('.popup__form');
 
 
 const addBtn = document.querySelector('.profile__add-button');
-const cardAddPopup = document.querySelector('.popup_add-place');
+const cardAddPopup = document.querySelector('.popup_type_add-place');
 const inputCard = cardAddPopup.querySelector('.popup__input_type_place');
 const inputLink = cardAddPopup.querySelector('.popup__input_type_link');
 const cardAddCloseBtn = cardAddPopup.querySelector('.popup__close-button');
@@ -116,7 +116,6 @@ const cardsBox = document.querySelector('.place-grid__places');
 // ---- функуции обработки карточек ----
 
 function renderInitialCards() {
-  removeCards();
   initialCards.forEach(createCard);
 }
 
@@ -136,16 +135,14 @@ function removeCards() {
 }
 
 function addNewCard() {
-
   const newCard = {
     name: inputCard.value,
     link: inputLink.value
   };
 
   initialCards.unshift(newCard);
+  removeCards();
   renderInitialCards();
-
-  // console.log(initialCards);
 }
 
 
