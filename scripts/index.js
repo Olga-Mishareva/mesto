@@ -35,7 +35,7 @@ function closePopup(popup) {                // закрытие попапа
   popup.classList.remove('popup_opened');
 }
 
-function handleSubmitForm(evt) {            // сохранение ред.профиля
+function handleProfileEditSubmit(evt) {            // сохранение ред.профиля
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileInfo.textContent = inputInfo.value;
@@ -65,7 +65,7 @@ cardAddCloseBtn.addEventListener('click', function() {
 
 // ---- save ----
 
-profileEditSaveBnt.addEventListener('submit', handleSubmitForm);
+profileEditSaveBnt.addEventListener('submit', handleProfileEditSubmit);
 
 profileEditSaveBnt.addEventListener('submit', function() {
   closePopup(profileEditPopup);
@@ -112,11 +112,61 @@ const cardsBox = document.querySelector('.place-grid__places');
 
 // ---- функуции обработки карточек ----
 
-initialCards.forEach((item) => {
+function renderInitialCards() {
+  initialCards.forEach(createCard);
+}
+
+function createCard(item) {
   const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
   initialCard.querySelector('.place__title').textContent = item.name;
   initialCard.querySelector('.place__image').src = item.link;
   initialCard.querySelector('.place__image').alt = item.name;
   cardsBox.append(initialCard);
-});
+}
 
+function addNewCard() {
+  const newCard = {
+    name: inputCard.value,
+    link: inputLink.value
+  };
+
+  initialCards.unshift(newCard);
+  console.log(initialCards);
+}
+
+// function createNewCard(card, link) {
+//   createCard(card.value)
+
+
+//   console.log(inputLink.value);
+// }
+
+function handleCardAddSubmit(evt) {
+  evt.preventDefault();
+  addNewCard();
+}
+
+console.log(inputCard.value);
+console.log(inputLink.value);
+
+cardAddSaveBtn.addEventListener('submit', handleCardAddSubmit);
+
+// cardAddSaveBtn.addEventListener('submit', function() {
+//   addNewCard();
+//   console.log(inputCard.value);
+//   console.log(inputLink.value);
+// });
+
+renderInitialCards();
+
+
+
+
+
+// newCards.forEach((item) => {
+//   const newCard = cardTemplate.querySelector('.place').cloneNode(true);
+//   newCard.querySelector('.place__title').textContent = item.name;
+//   newCard.querySelector('.place__image').src = item.link;
+//   newCard.querySelector('.place__image').alt = item.name;
+//   cardsBox.append(newCard);
+// });
