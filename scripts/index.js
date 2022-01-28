@@ -1,23 +1,26 @@
 const profileName = document.querySelector(".profile__name");
 const profileInfo = document.querySelector(".profile__info");
 const editBtn = document.querySelector(".profile__edit-button");
-const addBtn = document.querySelector(".profile__add-button");
-// console.log(editBtn);
-
-// const popupTemplate = document.querySelector('#page-popup').content;
 const profileEditPopup = document.querySelector(".popup_edit-profile");
-// console.log(editProfilePopup);
-
-// const profilePopup = popupTemplate.querySelector('.popup__container').cloneNode(true);
-// profilePopup.querySelector('.popup__title').textContent = 'Редактировать профиль';
-// profilePopup.querySelector('.popup__submit-button').textContent = 'Сохранить';
-// console.log(profilePopup.querySelector('.popup__submit-button').textContent);
-
-//console.log(popup);
 const inputName = profileEditPopup.querySelector(".popup__input_type_name");
 const inputInfo = profileEditPopup.querySelector(".popup__input_type_info");
 const closeBtn = profileEditPopup.querySelector(".popup__close-button");
 const saveFormBnt = profileEditPopup.querySelector(".popup__form");
+
+const addBtn = document.querySelector(".profile__add-button");
+const placeAddPopup = document.querySelector(".popup_add-place");
+
+
+// console.log(editBtn);
+
+// const popupTemplate = document.querySelector('#page-popup').content;
+
+// console.log(editProfilePopup);
+
+
+
+//console.log(popup);
+
 
 // editProfilePopup.append(profilePopup);
 
@@ -87,7 +90,7 @@ initialCards.forEach((item) => {
   cardsBox.append(initialCard);
 });
 
-const placeAddPopup = document.querySelector(".popup_add-place");
+
 
 
 
