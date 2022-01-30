@@ -124,10 +124,13 @@ function createCard(item) {
   initialCard.querySelector('.place__title').textContent = item.name;
   initialCard.querySelector('.place__image').src = item.link;
   initialCard.querySelector('.place__image').alt = item.name;
+  initialCard.querySelector('.place__stroke').addEventListener('click', function(evt) {
+    evt.target.classList.toggle('place__stroke_liked');
+  });
   cardsBox.append(initialCard);
 }
 
-function removeCards() {
+function removeAllCards() {
   const cards = document.querySelectorAll('.place');
   cards.forEach(elem => {
     elem.remove();
@@ -141,7 +144,7 @@ function addNewCard() {
   };
 
   initialCards.unshift(newCard);
-  removeCards();
+  removeAllCards();
   renderInitialCards();
 }
 
@@ -161,14 +164,8 @@ cardAddSaveBtn.addEventListener('submit', function() {
 
 renderInitialCards();
 
+// ---- лайки карточек ----
 
+// function likeCard (evt) {
 
-
-
-// newCards.forEach((item) => {
-//   const newCard = cardTemplate.querySelector('.place').cloneNode(true);
-//   newCard.querySelector('.place__title').textContent = item.name;
-//   newCard.querySelector('.place__image').src = item.link;
-//   newCard.querySelector('.place__image').alt = item.name;
-//   cardsBox.append(newCard);
-// });
+// }
