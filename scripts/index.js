@@ -124,9 +124,7 @@ function createCard(item) {
   initialCard.querySelector('.place__title').textContent = item.name;
   initialCard.querySelector('.place__image').src = item.link;
   initialCard.querySelector('.place__image').alt = item.name;
-  initialCard.querySelector('.place__stroke').addEventListener('click', function(evt) {
-    evt.target.classList.toggle('place__stroke_liked');
-  });
+  initialCard.querySelector('.place__stroke').addEventListener('click', likeCard);
   cardsBox.append(initialCard);
 }
 
@@ -166,6 +164,6 @@ renderInitialCards();
 
 // ---- лайки карточек ----
 
-// function likeCard (evt) {
-
-// }
+function likeCard (evt) {
+  evt.target.classList.toggle('place__stroke_liked');
+}
