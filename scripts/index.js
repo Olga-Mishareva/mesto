@@ -125,6 +125,7 @@ function createCard(item) {
   initialCard.querySelector('.place__image').src = item.link;
   initialCard.querySelector('.place__image').alt = item.name;
   initialCard.querySelector('.place__stroke').addEventListener('click', likeCard);
+  initialCard.querySelector('.place__trash').addEventListener('click', removeCard);
   cardsBox.append(initialCard);
 }
 
@@ -133,6 +134,10 @@ function removeAllCards() {
   cards.forEach(elem => {
     elem.remove();
   });
+}
+
+function removeCard(evt) {
+  evt.target.closest('.place').remove();
 }
 
 function addNewCard() {
