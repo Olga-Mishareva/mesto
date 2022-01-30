@@ -1,13 +1,13 @@
 .place__trash {
-  background-image: url(../../../images/trash.svg);
+  background-image: url(../../../images/trash.png);
   border: none;
-  width: 18px;
-  height: 19px;
+  width: 22px;
+  height: 25px;
+  background-size: cover;
   position: absolute;
   top: 20px;
   right: 20px;
   background-color: transparent;
-  box-shadow: 0 4px 5px 2px rgba(0, 0, 0, .3);
 }
 
 

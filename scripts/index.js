@@ -17,6 +17,11 @@ const inputLink = cardAddPopup.querySelector('.popup__input_type_link');
 const cardAddCloseBtn = cardAddPopup.querySelector('.popup__close-button');
 const cardAddSaveBtn = cardAddPopup.querySelector('.popup__form');
 
+const imagePopup = document.querySelector('.popup_type_show-image');
+const cardImage = imagePopup.querySelector('.popup__image');
+const cardCaption = imagePopup.querySelector('.popup__caption');
+const imageCloseBtn = imagePopup.querySelector('.popup__close-button');
+
 
 
 // ---- POPUP FUNCTION ----
@@ -93,8 +98,8 @@ const initialCards = [
     link: './images/daniil-silantev-fD7cXIFurSQ-unsplash.jpg',
   },
   {
-    name: 'Рыбачий полуостров',
-    link: './images/radik-sitdikov-48MxMepMwqc-unsplash.jpg',
+    name: 'Конжаковский Камень',
+    link: './images/daniil-silantev-hGQWGwtnbVw-unsplash.jpg',
   },
   {
     name: 'Камчатка',
@@ -105,8 +110,8 @@ const initialCards = [
     link: './images/kir-simakov-OGc_X8PeikQ-unsplash.jpg',
   },
   {
-    name: 'Крым',
-    link: './images/nikolay-vorobyev-o7jIzNWvCRo-unsplash.jpg',
+    name: 'Юрюзань',
+    link: './images/daniil-silantev-2avwToAG91M-unsplash.jpg',
   },
 ];
 const cardTemplate = document.querySelector('#card').content;
@@ -126,8 +131,19 @@ function createCard(item) {
   initialCard.querySelector('.place__image').alt = item.name;
   initialCard.querySelector('.place__stroke').addEventListener('click', likeCard);
   initialCard.querySelector('.place__trash').addEventListener('click', removeCard);
+  initialCard.querySelector('.place__image').addEventListener('click', showImage);
   cardsBox.append(initialCard);
 }
+
+function showImage(evt) {
+  openPopup(imagePopup);
+  imagePopup.querySelector('.popup__image').src = evt.target.src;
+  imagePopup.querySelector('.popup__caption').textContent = evt.target.alt;
+}
+
+imageCloseBtn.addEventListener('click', function() {
+  closePopup(imagePopup);
+});
 
 function removeAllCards() {
   const cards = document.querySelectorAll('.place');
