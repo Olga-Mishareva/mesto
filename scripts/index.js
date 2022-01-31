@@ -6,21 +6,21 @@ const editBtn = document.querySelector('.profile__edit-button');
 const profileEditPopup = document.querySelector('.popup_type_edit-profile');
 const inputName = profileEditPopup.querySelector('.popup__input_type_name');
 const inputInfo = profileEditPopup.querySelector('.popup__input_type_info');
-const profileEditCloseBtn = profileEditPopup.querySelector('.popup__close-button');
-const profileEditSaveBnt = profileEditPopup.querySelector('.popup__form');
+const profileEditCloseBtn = profileEditPopup.querySelector('.popup__close-button_type_edit');
+const profileEditSaveBnt = profileEditPopup.querySelector('.popup__form_type_edit');
 
 
 const addBtn = document.querySelector('.profile__add-button');
 const cardAddPopup = document.querySelector('.popup_type_add-place');
 const inputCard = cardAddPopup.querySelector('.popup__input_type_place');
 const inputLink = cardAddPopup.querySelector('.popup__input_type_link');
-const cardAddCloseBtn = cardAddPopup.querySelector('.popup__close-button');
-const cardAddSaveBtn = cardAddPopup.querySelector('.popup__form');
+const cardAddCloseBtn = cardAddPopup.querySelector('.popup__close-button_type_add');
+const cardAddSaveBtn = cardAddPopup.querySelector('.popup__form_type_add');
 
 const imagePopup = document.querySelector('.popup_type_show-image');
 const cardImage = imagePopup.querySelector('.popup__image');
 const cardCaption = imagePopup.querySelector('.popup__caption');
-const imageCloseBtn = imagePopup.querySelector('.popup__close-button');
+const imageCloseBtn = imagePopup.querySelector('.popup__close-button_type_show');
 
 
 
@@ -88,32 +88,7 @@ profileEditPopup.addEventListener('keyup', (evt) => {
 
 // ---- данные карточек ----
 
-const initialCards = [
-  {
-    name: 'Гора Ахун',
-    link: './images/ana-kai-QXOl2IXJ_ow-unsplash.jpg',
-  },
-  {
-    name: 'Камчатка',
-    link: './images/daniil-silantev-fD7cXIFurSQ-unsplash.jpg',
-  },
-  {
-    name: 'Конжаковский Камень',
-    link: './images/daniil-silantev-hGQWGwtnbVw-unsplash.jpg',
-  },
-  {
-    name: 'Камчатка',
-    link: './images/daniil-silantev-h-M3O25tyvI-unsplash.jpg',
-  },
-  {
-    name: 'Ольхон',
-    link: './images/kir-simakov-OGc_X8PeikQ-unsplash.jpg',
-  },
-  {
-    name: 'Юрюзань',
-    link: './images/daniil-silantev-2avwToAG91M-unsplash.jpg',
-  },
-];
+
 const cardTemplate = document.querySelector('#card').content;
 const cardsBox = document.querySelector('.place-grid__places');
 
