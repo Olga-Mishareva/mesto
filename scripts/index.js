@@ -28,6 +28,7 @@ const imageCloseBtn = imagePopup.querySelector('.popup__close-button_type_show')
 
 function openPopup(popup) {               // открытие попапа
   popup.classList.add('popup_opened');
+  // console.log(popup);
 }
 
 function handleOpenEditProfilePopup(popup) {    // заполнение ред.профиля
