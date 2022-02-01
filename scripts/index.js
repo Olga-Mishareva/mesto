@@ -106,7 +106,11 @@ function createCard(item) {
   initialCard.querySelector('.place__image').src = item.link;
   initialCard.querySelector('.place__image').alt = item.name;
   initialCard.querySelector('.place__stroke').addEventListener('click', likeCard);
-  initialCard.querySelector('.place__trash').addEventListener('click', removeCard);
+  initialCard.querySelector('.place__trash').addEventListener('click', function(evt) {
+    // console.log(evt);
+    // console.log(evt);
+    removeCard(initialCards.indexOf(item), evt);
+  });
   initialCard.querySelector('.place__image').addEventListener('click', showImage);
   cardsBox.append(initialCard);
 }
@@ -128,8 +132,32 @@ function removeAllCards() {
   });
 }
 
-function removeCard(evt) {
-  evt.target.closest('.place').remove();
+function removeCard(index, evt) {                  // ---------------delete card--------------
+  initialCards = initialCards.filter(function (elem, i) {
+
+    // console.log(indexOf(elem));
+    // console.log(item.link);
+    // console.log(elem.link);
+    console.log(index);
+    console.log(i);
+
+
+    if(index !== i) {
+      return elem;
+    }
+
+    evt.target.closest('.place').remove();
+
+  });
+  console.log(initialCards);
+
+
+
+
+
+
+
+  // console.log(evt.target.closest('.place'));
 }
 
 function addNewCard() {
