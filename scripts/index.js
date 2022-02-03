@@ -70,17 +70,20 @@ function createCard(item) {
   initialCard.querySelector('.place__image').src = item.link;
   initialCard.querySelector('.place__image').alt = item.name;
 
-
-  initialCard.querySelector('.place__stroke').addEventListener('click', likeCard);
-  initialCard.querySelector('.place__trash').addEventListener('click', removeCard);
-  initialCard.querySelector('.place__image').addEventListener('click', showImage);
-
+  addListeners(initialCard);
   return initialCard;
 }
 
 // добавление карточки в DOM
 function addCard(card) {
   cardsBox.prepend(createCard(card));
+}
+
+// добавление слушателей на карточку
+function addListeners(elem) {
+  elem.querySelector('.place__stroke').addEventListener('click', likeCard);
+  elem.querySelector('.place__trash').addEventListener('click', removeCard);
+  elem.querySelector('.place__image').addEventListener('click', showImage);
 }
 
 // создание новой карточки
