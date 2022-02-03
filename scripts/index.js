@@ -4,7 +4,7 @@ const editBtn = document.querySelector('.profile__edit-button');
 const profileEditPopup = document.querySelector('.popup_type_edit-profile');
 const inputName = profileEditPopup.querySelector('.popup__input_type_name');
 const inputInfo = profileEditPopup.querySelector('.popup__input_type_info');
-const profileEditCloseBtn = profileEditPopup.querySelector('.popup__close-button_type_edit');
+const profileEditCloseBtn = profileEditPopup.querySelector('.popup__close-button');
 const profileEditSaveBnt = profileEditPopup.querySelector('#save');
 
 // --------------------------------------------------------------
@@ -13,8 +13,8 @@ const addBtn = document.querySelector('.profile__add-button');
 const cardAddPopup = document.querySelector('.popup_type_add-place');
 const inputCard = cardAddPopup.querySelector('.popup__input_type_place');
 const inputLink = cardAddPopup.querySelector('.popup__input_type_link');
-const cardAddCloseBtn = cardAddPopup.querySelector('.popup__close-button_type_add');
-const cardAddSaveBtn = cardAddPopup.querySelector('.popup__form_type_add');
+const cardAddCloseBtn = cardAddPopup.querySelector('.popup__close-button');
+const cardAddSaveBtn = cardAddPopup.querySelector('#add');
 
 // ----------------------------------------------------------------
 
@@ -65,7 +65,6 @@ function renderInitialCards() {
 
 // создание карточек, навешивает слушатели лайка, удаления и показа картинки
 function createCard(item) {
-  console.log(item)
   const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
   initialCard.querySelector('.place__title').textContent = item.name;
   initialCard.querySelector('.place__image').src = item.link;
@@ -138,14 +137,6 @@ profileEditCloseBtn.addEventListener('click', function() {
 profileEditSaveBnt.addEventListener('submit', function(evt) {
   handleProfileEditSubmit(evt);
   closePopup(profileEditPopup);
-});
-
-// сохранение профиля с Enter-------------------------------!!!!!!!!!!
-profileEditPopup.addEventListener('keyup', (evt) => {
-  if (evt.code === 'Enter') {
-    handleProfileEditSubmit(evt);
-    closePopup(profileEditPopup);
-  }
 });
 
 // ----------------------------------------------------
