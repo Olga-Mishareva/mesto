@@ -5,7 +5,7 @@ const profileEditPopup = document.querySelector('.popup_type_edit-profile');
 const inputName = profileEditPopup.querySelector('.popup__input_type_name');
 const inputInfo = profileEditPopup.querySelector('.popup__input_type_info');
 const profileEditCloseBtn = profileEditPopup.querySelector('.popup__close-button_type_edit');
-const profileEditSaveBnt = profileEditPopup.querySelector('.popup__form_type_edit');
+const profileEditSaveBnt = profileEditPopup.querySelector('#save');
 
 // --------------------------------------------------------------
 
@@ -140,7 +140,7 @@ profileEditSaveBnt.addEventListener('submit', function(evt) {
   closePopup(profileEditPopup);
 });
 
-// сохранение профиля с Enter
+// сохранение профиля с Enter-------------------------------!!!!!!!!!!
 profileEditPopup.addEventListener('keyup', (evt) => {
   if (evt.code === 'Enter') {
     handleProfileEditSubmit(evt);
