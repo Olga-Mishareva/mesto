@@ -1,4 +1,4 @@
-let initialCards = [
+const initialCards = [
   {
     name: 'Гора Ахун',
     link: './images/ana-kai-QXOl2IXJ_ow-unsplash.jpg',

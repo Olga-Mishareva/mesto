@@ -19,8 +19,8 @@ const cardAddSaveBtn = cardAddPopup.querySelector('.popup__form_type_add');
 // ----------------------------------------------------------------
 
 const imagePopup = document.querySelector('.popup_type_show-image');
-const cardImage = imagePopup.querySelector('.popup__image');
-const cardCaption = imagePopup.querySelector('.popup__caption');
+const cardImage = imagePopup.querySelector('.popup__image');                             //
+const cardCaption = imagePopup.querySelector('.popup__caption');                         //
 const imageCloseBtn = imagePopup.querySelector('.popup__close-button_type_show');
 
 
@@ -60,57 +60,97 @@ const cardsBox = document.querySelector('.place-grid__places');
 
 // отрисовка массива карточек
 function renderInitialCards() {
-  initialCards.forEach(createCard);
+  initialCards.forEach(addCard);
+}
+
+// добавление карточки
+function addCard(card) {
+  // console.log(card);
+  cardsBox.prepend(createCard(card));
 }
 
 // создание карточек в DOM, слушатели лайка, удаления и показа картинки
 function createCard(item) {
   const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
+  console.log(item)
   initialCard.querySelector('.place__title').textContent = item.name;
   initialCard.querySelector('.place__image').src = item.link;
   initialCard.querySelector('.place__image').alt = item.name;
+
+  // console.log(item.name)
+  // console.log(item.link)
+
   initialCard.querySelector('.place__stroke').addEventListener('click', likeCard);
-  initialCard.querySelector('.place__trash').addEventListener('click', function(evt) {
-    removeCard(initialCards.indexOf(item), evt);
-  });
+  initialCard.querySelector('.place__trash').addEventListener('click', removeCard);
   initialCard.querySelector('.place__image').addEventListener('click', showImage);
-  cardsBox.append(initialCard);
+
+  return initialCard;
 }
 
+// const newCard = {
+//   name: '',
+//   link: ''
+// };
+
 // добавление новой карточки
-function addNewCard() {
+function createNewCard(card) {
+
+  // newCard.name = inputCard.value;
+  // newCard.link =inputLink.value;
+
   const newCard = {
     name: inputCard.value,
     link: inputLink.value
   };
-  initialCards.unshift(newCard);
+  // console.log(newCard.name)
+  // console.log(newCard.link)
+  createCard(newCard);
+  addCard(card);
+
+  // initialCards.unshift(newCard);
 }
 
 // сохрание новой карточки
 function handleCardAddSubmit(evt) {
   evt.preventDefault();
-  removeAllCards();
-  addNewCard();
-  renderInitialCards();
+
+  createNewCard()
+
+
+  // removeAllCards();
+  // addNewCard();
+  // renderInitialCards();
 }
+
+// кнопка сохранения новой карточки
+cardAddSaveBtn.addEventListener('submit', function(evt) {
+  handleCardAddSubmit(evt);
+  inputCard.value = '';
+  inputLink.value= '';
+  closePopup(cardAddPopup);
+});
+
+
+
 
 // удаление карточки из массива и из DOM
-function removeCard(index, evt) {
-  initialCards = initialCards.filter(function (elem, i) {
-    if(index !== i) {
-      return elem;
-    }
+function removeCard(evt) {
+  // initialCards = initialCards.filter(function (elem, i) {
+  //   if(index !== i) {
+  //     return elem;
+  //   }
+  console.log(evt.target)
     evt.target.closest('.place').remove();
-  });
+  // });
 }
 
-// очитка DOM от всех карточек
-function removeAllCards() {
-  const cards = document.querySelectorAll('.place');
-  cards.forEach(elem => {
-    elem.remove();
-  });
-}
+// // очитка DOM от всех карточек
+// function removeAllCards() {
+//   const cards = document.querySelectorAll('.place');
+//   cards.forEach(elem => {
+//     elem.remove();
+//   });
+// }
 
 // лайк карточки
 function likeCard (evt) {
@@ -120,8 +160,8 @@ function likeCard (evt) {
 // показ картинки
 function showImage(evt) {
   openPopup(imagePopup);
-  imagePopup.querySelector('.popup__image').src = evt.target.src;
-  imagePopup.querySelector('.popup__caption').textContent = evt.target.alt;
+  cardImage.src = evt.target.src;
+  cardCaption.textContent = evt.target.alt;
 }
 
 renderInitialCards();
@@ -169,12 +209,7 @@ cardAddCloseBtn.addEventListener('click', function() {
 })
 
 // кнопка сохранения новой карточки
-cardAddSaveBtn.addEventListener('submit', function(evt) {
-  handleCardAddSubmit(evt);
-  inputCard.value = '';
-  inputLink.value= '';
-  closePopup(cardAddPopup);
-});
+//
 
 // ----------------------------------------------------
 
