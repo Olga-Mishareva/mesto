@@ -71,8 +71,9 @@ function addCard(card) {
 
 // создание карточек в DOM, слушатели лайка, удаления и показа картинки
 function createCard(item) {
-  const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
   console.log(item)
+  const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
+
   initialCard.querySelector('.place__title').textContent = item.name;
   initialCard.querySelector('.place__image').src = item.link;
   initialCard.querySelector('.place__image').alt = item.name;
@@ -93,7 +94,7 @@ function createCard(item) {
 // };
 
 // добавление новой карточки
-function createNewCard(card) {
+function createNewCard() {
 
   // newCard.name = inputCard.value;
   // newCard.link =inputLink.value;
@@ -102,10 +103,13 @@ function createNewCard(card) {
     name: inputCard.value,
     link: inputLink.value
   };
-  // console.log(newCard.name)
+
+  // console.log(newCard)
   // console.log(newCard.link)
-  createCard(newCard);
-  addCard(card);
+  addCard(newCard);
+
+  // createCard(newCard);
+  // addCard(card);
 
   // initialCards.unshift(newCard);
 }
