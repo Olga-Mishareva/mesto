@@ -19,8 +19,8 @@ const cardAddSaveBtn = cardAddPopup.querySelector('.popup__form_type_add');
 // ----------------------------------------------------------------
 
 const imagePopup = document.querySelector('.popup_type_show-image');
-const cardImage = imagePopup.querySelector('.popup__image');                             //
-const cardCaption = imagePopup.querySelector('.popup__caption');                         //
+const cardImage = imagePopup.querySelector('.popup__image');
+const cardCaption = imagePopup.querySelector('.popup__caption');
 const imageCloseBtn = imagePopup.querySelector('.popup__close-button_type_show');
 
 
@@ -63,23 +63,14 @@ function renderInitialCards() {
   initialCards.forEach(addCard);
 }
 
-// добавление карточки
-function addCard(card) {
-  // console.log(card);
-  cardsBox.prepend(createCard(card));
-}
-
-// создание карточек в DOM, слушатели лайка, удаления и показа картинки
+// создание карточек, навешивает слушатели лайка, удаления и показа картинки
 function createCard(item) {
   console.log(item)
   const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
-
   initialCard.querySelector('.place__title').textContent = item.name;
   initialCard.querySelector('.place__image').src = item.link;
   initialCard.querySelector('.place__image').alt = item.name;
 
-  // console.log(item.name)
-  // console.log(item.link)
 
   initialCard.querySelector('.place__stroke').addEventListener('click', likeCard);
   initialCard.querySelector('.place__trash').addEventListener('click', removeCard);
@@ -88,73 +79,31 @@ function createCard(item) {
   return initialCard;
 }
 
-// const newCard = {
-//   name: '',
-//   link: ''
-// };
+// добавление карточки в DOM
+function addCard(card) {
+  cardsBox.prepend(createCard(card));
+}
 
-// добавление новой карточки
+// создание новой карточки
 function createNewCard() {
-
-  // newCard.name = inputCard.value;
-  // newCard.link =inputLink.value;
-
   const newCard = {
     name: inputCard.value,
     link: inputLink.value
   };
 
-  // console.log(newCard)
-  // console.log(newCard.link)
   addCard(newCard);
-
-  // createCard(newCard);
-  // addCard(card);
-
-  // initialCards.unshift(newCard);
 }
 
 // сохрание новой карточки
 function handleCardAddSubmit(evt) {
   evt.preventDefault();
-
   createNewCard()
-
-
-  // removeAllCards();
-  // addNewCard();
-  // renderInitialCards();
 }
 
-// кнопка сохранения новой карточки
-cardAddSaveBtn.addEventListener('submit', function(evt) {
-  handleCardAddSubmit(evt);
-  inputCard.value = '';
-  inputLink.value= '';
-  closePopup(cardAddPopup);
-});
-
-
-
-
-// удаление карточки из массива и из DOM
+// удаление карточки из DOM
 function removeCard(evt) {
-  // initialCards = initialCards.filter(function (elem, i) {
-  //   if(index !== i) {
-  //     return elem;
-  //   }
-  console.log(evt.target)
-    evt.target.closest('.place').remove();
-  // });
+  evt.target.closest('.place').remove();
 }
-
-// // очитка DOM от всех карточек
-// function removeAllCards() {
-//   const cards = document.querySelectorAll('.place');
-//   cards.forEach(elem => {
-//     elem.remove();
-//   });
-// }
 
 // лайк карточки
 function likeCard (evt) {
@@ -165,6 +114,7 @@ function likeCard (evt) {
 function showImage(evt) {
   openPopup(imagePopup);
   cardImage.src = evt.target.src;
+  cardImage.alt = evt.target.alt;
   cardCaption.textContent = evt.target.alt;
 }
 
@@ -200,12 +150,12 @@ profileEditPopup.addEventListener('keyup', (evt) => {
 
 // ----------------------------------------------------
 
-// кнопка добавления карточки
+// кнопка добавить карточку
 addBtn.addEventListener('click', function() {
   openPopup(cardAddPopup);
 });
 
-// кнопка закрытия добавления карточки
+// кнопка закрытия попапа добавления карточки
 cardAddCloseBtn.addEventListener('click', function() {
   inputCard.value = '';
   inputLink.value= '';
@@ -213,7 +163,12 @@ cardAddCloseBtn.addEventListener('click', function() {
 })
 
 // кнопка сохранения новой карточки
-//
+cardAddSaveBtn.addEventListener('submit', function(evt) {
+  handleCardAddSubmit(evt);
+  inputCard.value = '';
+  inputLink.value= '';
+  closePopup(cardAddPopup);
+});
 
 // ----------------------------------------------------
 
