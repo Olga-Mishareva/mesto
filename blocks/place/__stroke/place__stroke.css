@@ -1,5 +1,7 @@
 .place__stroke {
   background-image: url(../../../images/stroke.svg);
+  background-repeat: no-repeat;
+  background-position: center;
   width: 22px;
   height: 19px;
   border: none;
