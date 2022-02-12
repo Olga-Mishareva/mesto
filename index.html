@@ -62,10 +62,10 @@
           <h2 class="popup__title">Редактировать профиль</h2>
           <input class="popup__input popup__input_type_name" id="name" type="text" required minlength="2" maxlength="40" name="profile-name"
             placeholder="Имя">
-            <span class="popup__input-error popup__input-error_type_name"></span>
+          <span class="popup__error popup__error_type_name"></span>
           <input class="popup__input popup__input_type_info" id="about" type="text" required minlength="2" maxlength="200" name="profile-info"
             placeholder="О себе">
-            <span class="popup__input-error popup__input-error_type_about"></span>
+          <span class="popup__error popup__error_type_about"></span>
           <button class="popup__submit-button" type="submit" form="save">Сохранить</button>
         </form>
       </div>
@@ -76,12 +76,12 @@
         <button class="popup__close-button" type="button"></button>
         <form class="popup__form" novalidate name="profile-form" action="#" id="add">
           <h2 class="popup__title">Новое место</h2>
-          <input class="popup__input popup__input_type_place" id="place__trash" type="text" required name="profile-name"
+          <input class="popup__input popup__input_type_place" id="place" type="text" required minlength="2" maxlength="40" name="profile-name"
             placeholder="Название">
-            <span class="popup__input-error popup__input-error_type_place"></span>
+          <span class="popup__error popup__error_type_place"></span>
           <input class="popup__input popup__input_type_link" id="img" type="url" required name="profile-info"
             placeholder="Ссылка на картинку">
-            <span class="popup__input-error popup__input-error_type_img"></span>
+          <span class="popup__error popup__error_type_img"></span>
           <button class="popup__submit-button popup__submit-button_inactiv" type="submit" form="add">Создать</button>
         </form>
       </div>
