@@ -30,6 +30,7 @@ const imageCloseBtn = imagePopup.querySelector(
 // открытие попапа
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  console.log(inputName.validity.valid)
 }
 
 // закрытие попапа
@@ -44,6 +45,9 @@ function handleOpenEditProfilePopup(popup) {
   openPopup(popup);
   inputName.value = profileName.textContent;
   inputInfo.value = profileInfo.textContent;
+
+  //const inputList = Array.from(popup.querySelectorAll('.popup__input'));
+
 }
 
 // сохранение ред.профиля

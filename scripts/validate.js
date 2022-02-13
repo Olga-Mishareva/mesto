@@ -38,6 +38,7 @@ function checkInputValidity ({ ...restSettings }, inputElement) {
 // проверяет, есть ли в списке инпутов данной формы невалидные поля
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
+    console.log(inputElement.validity)
     return !inputElement.validity.valid;
   })
 }
@@ -45,10 +46,12 @@ function hasInvalidInput(inputList) {
 // отключает submit, если есть хоть одно невалидное поле
 function switchSubmitBtnState({ inactiveButtonClass }, inputList, submitBtn) {
   if(hasInvalidInput(inputList)) {
+    // console.log(hasInvalidInput(inputList))
     submitBtn.classList.add(inactiveButtonClass);
     submitBtn.setAttribute('disabled', '');
   }
   else {
+    // console.log(hasInvalidInput(inputList))
     submitBtn.classList.remove(inactiveButtonClass);
     submitBtn.removeAttribute('disabled');
   }
