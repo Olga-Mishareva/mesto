@@ -1,12 +1,5 @@
-const settings = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-}
-
+// при вызове диструктурирует переданный объект
+// достает из restSettings нужное и передает глубже в форме {...restSettings}
 function enableValidation({ formSelector, ...restSettings }) {
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((formElement) => {
@@ -14,8 +7,9 @@ function enableValidation({ formSelector, ...restSettings }) {
   })
 }
 
-// в кажд. форме находим все инпуты
-// на кажд. инп. вешаем обработчик события инп.
+// в кажд. форме находит все инпуты и на кажд. вешает обработчик события input
+// для кажд. нового нажатия вызывает ф.валидации и ф.контроля кнопки submit
+// достает из restSettings нужное и передает глубже в форме {...restSettings}
 function setEventListeners({ inputSelector, submitButtonSelector, ...restSettings }, formElement) {
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   const submitBtn = formElement.querySelector(submitButtonSelector);
@@ -29,7 +23,8 @@ function setEventListeners({ inputSelector, submitButtonSelector, ...restSetting
   });
 }
 
-// в кот. проверяем валидность каждого нажатия
+// проверяет валидность каждого нажатия
+// принятые restSettings предает глубже
 function checkInputValidity ({ ...restSettings }, inputElement) {
 
   if(!inputElement.validity.valid) {
@@ -40,13 +35,14 @@ function checkInputValidity ({ ...restSettings }, inputElement) {
   }
 }
 
-//
+// проверяет, есть ли в списке инпутов данной формы невалидные поля
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   })
 }
 
+// отключает submit, если есть хоть одно невалидное поле
 function switchSubmitBtnState({ inactiveButtonClass }, inputList, submitBtn) {
   if(hasInvalidInput(inputList)) {
     submitBtn.classList.add(inactiveButtonClass);
@@ -58,25 +54,31 @@ function switchSubmitBtnState({ inactiveButtonClass }, inputList, submitBtn) {
   }
 }
 
-// и выдаем спан, подчеркивание - showError, и откл. кнопки - toggle
+// показывает span с ошбками, включает выделение невалидного поля
 function showError({ inputErrorClass, errorClass }, inputElement, errorMassage) {
-  const popupError = document.querySelector(`.popup__error_type_${inputElement.id}`);
+  const popupError = document.querySelector(`.popup__error_type_${inputElement.name}`);
   inputElement.classList.add(inputErrorClass);
   popupError.classList.add(errorClass);
   popupError.textContent = errorMassage;
 
 }
 
+// скрывает span с ошбками, выключает выделение невалидного поля
 function hideError({ inputErrorClass, errorClass }, inputElement) {
-  const popupError = document.querySelector(`.popup__error_type_${inputElement.id}`);
+  const popupError = document.querySelector(`.popup__error_type_${inputElement.name}`);
   inputElement.classList.remove(inputErrorClass);
   popupError.classList.remove(errorClass);
   popupError.textContent = '';
 }
 
-
-
-enableValidation(settings);
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});
 
 
 
