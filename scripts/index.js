@@ -46,18 +46,12 @@ function handleOpenEditProfilePopup(popup) {
   inputInfo.value = profileInfo.textContent;
 }
 
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!сохранение ред.профиля
+// сохранение ред.профиля
 function handleProfileEditSubmit(evt) {
   evt.preventDefault();
 
-  const inputList = Array.from(
-    profileEditSave.querySelectorAll('.popup__input')
-  );
-  if (!hasInvalidInput(inputList)) {
-    profileName.textContent = inputName.value;
-    profileInfo.textContent = inputInfo.value;
-    closePopup(profileEditPopup);
-  }
+  profileName.textContent = inputName.value;
+  profileInfo.textContent = inputInfo.value;
 }
 
 // ------ popup_add-place -----------------------------------------------
@@ -103,16 +97,11 @@ function createNewCard() {
   addCard(newCard);
 }
 
-// !!!!!!!!!!!!!!!!!!!!!!! сохрание новой карточки
+// сохрание новой карточки
 function handleCardAddSubmit(evt) {
   evt.preventDefault();
-
-  const inputList = Array.from(cardAddSave.querySelectorAll('.popup__input'));
-  if (!hasInvalidInput(inputList)) {
-    createNewCard();
-    closePopup(cardAddPopup);
-    cardAddSave.reset();
-  }
+  createNewCard();
+  cardAddSave.reset();
 }
 
 // удаление карточки из DOM
@@ -145,18 +134,15 @@ editBtn.addEventListener('click', function () {
 // кнопка закрытия ред.профиля
 profileEditCloseBtn.addEventListener('click', () => closePopup(profileEditPopup));
 
-// !!!!!!!!!!!!!!!!!!!!!!!!кнопка сохранения профиля
+// кнопка сохранения профиля
 profileEditSave.addEventListener('submit', function (evt) {
   handleProfileEditSubmit(evt);
+  closePopup(profileEditPopup);
 });
 
 // ----------------------------------------------------
 
 // кнопка добавить карточку
-// addBtn.addEventListener('click', function() {
-//   openPopup(cardAddPopup);
-// });
-
 addBtn.addEventListener('click', () => openPopup(cardAddPopup));
 
 // кнопка закрытия попапа добавления карточки
@@ -166,12 +152,11 @@ cardAddCloseBtn.addEventListener('click', function () {
 });
 
 // кнопка сохранения новой карточки
-// cardAddSave.addEventListener('submit', function (evt) {
-//   handleCardAddSubmit(evt);
-// });
+cardAddSave.addEventListener('submit', (evt) => {
+  handleCardAddSubmit(evt);
+  closePopup(cardAddPopup);
+});
 
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!
-cardAddSave.addEventListener('submit', (evt) => handleCardAddSubmit(evt));
 
 // ----------------------------------------------------
 

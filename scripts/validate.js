@@ -50,9 +50,11 @@ function hasInvalidInput(inputList) {
 function switchSubmitBtnState(inputList, submitBtn) {
   if(hasInvalidInput(inputList)) {
     submitBtn.classList.add('popup__submit-button_disabled');
+    submitBtn.setAttribute('disabled', '');
   }
   else {
     submitBtn.classList.remove('popup__submit-button_disabled');
+    submitBtn.removeAttribute('disabled');
   }
 }
 
