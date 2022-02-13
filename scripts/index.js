@@ -21,16 +21,20 @@ const cardAddSave = cardAddPopup.querySelector('#add');
 const imagePopup = document.querySelector('.popup_type_show-image');
 const cardImage = imagePopup.querySelector('.popup__image');
 const cardCaption = imagePopup.querySelector('.popup__caption');
-const imageCloseBtn = imagePopup.querySelector(
-  '.popup__close-button_type_show'
-);
+const imageCloseBtn = imagePopup.querySelector('.popup__close-button_type_show');
+
+// ----------------------------------------------------------------
+
+const cardTemplate = document.querySelector('#card').content;
+const cardsBox = document.querySelector('.place-grid__places');
+
 
 // ------- HANDLE POPUP -------
 
 // открытие попапа
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  console.log(inputName.validity.valid)
+  // console.log(inputName.validity.valid)
 }
 
 // закрытие попапа
@@ -56,12 +60,13 @@ function handleProfileEditSubmit(evt) {
 
   profileName.textContent = inputName.value;
   profileInfo.textContent = inputInfo.value;
+  console.log(settings)
+  const submitBtn = profileEditSave.querySelector('.popup__submit-button')
+  //switchSubmitBtnState(settings, submitBtn, profileEditSave)
 }
 
 // ------ popup_add-place -----------------------------------------------
 
-const cardTemplate = document.querySelector('#card').content;
-const cardsBox = document.querySelector('.place-grid__places');
 
 // отрисовка массива карточек
 function renderInitialCards() {
@@ -166,3 +171,12 @@ cardAddSave.addEventListener('submit', (evt) => {
 
 // кнопка закрытия показа картинки
 imageCloseBtn.addEventListener('click', () => closePopup(imagePopup));
+
+// ----------------------------------------------------------------
+
+//
+const overlayList = Array.from(document.querySelectorAll('.popup'));
+overlayList.forEach((overlay) => {
+  overlay.addEventListener('click', () => closePopup(overlay));
+})
+

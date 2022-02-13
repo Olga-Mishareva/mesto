@@ -38,7 +38,7 @@ function checkInputValidity ({ ...restSettings }, inputElement) {
 // проверяет, есть ли в списке инпутов данной формы невалидные поля
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
-    console.log(inputElement.validity)
+    // console.log(inputElement.validity)
     return !inputElement.validity.valid;
   })
 }
