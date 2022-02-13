@@ -7,36 +7,36 @@ const settings = {
   errorClass: 'popup__error_visible'
 }
 
-function enableValidation(formElement, inputElement, submitBtn, inactivSubmitBtn, invalidInpun, errorElement) {
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
+function enableValidation({ formSelector, ...restSettings }) {
+  const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((formElement) => {
-    setEventListeners(formElement);
+    setEventListeners(restSettings, formElement);
   })
 }
 
 // в кажд. форме находим все инпуты
 // на кажд. инп. вешаем обработчик события инп.
-function setEventListeners(formElement) {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  const submitBtn = formElement.querySelector('.popup__submit-button');
-
-  switchSubmitBtnState(inputList, submitBtn);
+function setEventListeners({ inputSelector, submitButtonSelector, ...restSettings }, formElement) {
+  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
+  const submitBtn = formElement.querySelector(submitButtonSelector);
+  switchSubmitBtnState(restSettings, inputList, submitBtn);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function() {
-      checkInputValidity(inputElement);
-      switchSubmitBtnState(inputList, submitBtn);
+      checkInputValidity(restSettings, inputElement);
+      switchSubmitBtnState(restSettings, inputList, submitBtn);
     });
   });
 }
 
 // в кот. проверяем валидность каждого нажатия
-function checkInputValidity (inputElement) {
+function checkInputValidity ({ ...restSettings }, inputElement) {
+
   if(!inputElement.validity.valid) {
-    showError(inputElement, inputElement.validationMessage);
+    showError(restSettings, inputElement, inputElement.validationMessage);
   }
   else {
-    hideError(inputElement);
+    hideError(restSettings, inputElement);
   }
 }
 
@@ -47,29 +47,30 @@ function hasInvalidInput(inputList) {
   })
 }
 
-function switchSubmitBtnState(inputList, submitBtn) {
+function switchSubmitBtnState({ inactiveButtonClass }, inputList, submitBtn) {
   if(hasInvalidInput(inputList)) {
-    submitBtn.classList.add('popup__submit-button_disabled');
+    submitBtn.classList.add(inactiveButtonClass);
     submitBtn.setAttribute('disabled', '');
   }
   else {
-    submitBtn.classList.remove('popup__submit-button_disabled');
+    submitBtn.classList.remove(inactiveButtonClass);
     submitBtn.removeAttribute('disabled');
   }
 }
 
 // и выдаем спан, подчеркивание - showError, и откл. кнопки - toggle
-function showError(inputElement, errorMassage) {
-  inputElement.classList.add('popup__input_type_error');
+function showError({ inputErrorClass, errorClass }, inputElement, errorMassage) {
   const popupError = document.querySelector(`.popup__error_type_${inputElement.id}`);
-  popupError.classList.add('popup__error_visible');
+  inputElement.classList.add(inputErrorClass);
+  popupError.classList.add(errorClass);
   popupError.textContent = errorMassage;
+
 }
 
-function hideError(inputElement) {
+function hideError({ inputErrorClass, errorClass }, inputElement) {
   const popupError = document.querySelector(`.popup__error_type_${inputElement.id}`);
-  inputElement.classList.remove('popup__input_type_error');
-  popupError.classList.remove('popup__error_visible');
+  inputElement.classList.remove(inputErrorClass);
+  popupError.classList.remove(errorClass);
   popupError.textContent = '';
 }
 
