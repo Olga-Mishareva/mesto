@@ -35,6 +35,9 @@ const cardsBox = document.querySelector('.place-grid__places');
 // открытие попапа
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+
+  hideIrrelevantErrors(popup);
+
   document.addEventListener('keydown', closeWithEsc);
   document.addEventListener('mousedown', closeWithOverlay);
 }
@@ -49,7 +52,9 @@ function closePopup(popup) {
 // заткрытие попапа кнопкой Esc
 function closeWithEsc(evt) {
   const popupOpened = document.querySelector('.popup_opened');
+  const formElement = popupOpened.querySelector('.popup__form');
   if(evt.key === 'Escape') {
+    formElement.reset();
     closePopup(popupOpened);
   }
 }
@@ -57,9 +62,19 @@ function closeWithEsc(evt) {
 // заткрытие попапа кликом на Overlay
 function closeWithOverlay(evt) {
   const popupOpened = document.querySelector('.popup_opened');
+  const formElement = popupOpened.querySelector('.popup__form');
   if(evt.target === popupOpened) {
+    formElement.reset();
     closePopup(popupOpened);
   }
+}
+
+// скрывает старые сообщения об ошибках при новом открытии попапа
+function hideIrrelevantErrors(popup) {
+  const inputList = Array.from(popup.querySelectorAll('.popup__input'));
+  inputList.forEach((inputElement) => {
+    hideErrors(settings, inputElement);
+  })
 }
 
 // ------ popup_edit-profile -----------------------------------------------
@@ -67,6 +82,7 @@ function closeWithOverlay(evt) {
 // заполнение ред.профиля
 function handleOpenEditProfilePopup(popup) {
   openPopup(popup);
+
   inputName.value = profileName.textContent;
   inputInfo.value = profileInfo.textContent;
 
@@ -118,7 +134,6 @@ function createNewCard() {
     name: inputCard.value,
     link: inputLink.value,
   };
-
   addCard(newCard);
 }
 
@@ -146,6 +161,7 @@ function showImage(evt) {
   cardImage.alt = evt.target.alt;
   cardCaption.textContent = evt.target.alt;
 }
+
 
 renderInitialCards();
 

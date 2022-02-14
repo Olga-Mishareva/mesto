@@ -36,10 +36,10 @@ function setEventListeners({ inputSelector, submitButtonSelector, ...restSetting
 // принятые restSettings предает глубже
 function checkInputValidity ({ ...restSettings }, inputElement) {
   if(!inputElement.validity.valid) {
-    showError(restSettings, inputElement, inputElement.validationMessage);
+    showErrors(restSettings, inputElement, inputElement.validationMessage);
   }
   else {
-    hideError(restSettings, inputElement);
+    hideErrors(restSettings, inputElement);
   }
 }
 
@@ -56,7 +56,7 @@ function switchSubmitBtnState({ inactiveButtonClass }, submitBtn, formElement) {
 }
 
 // показывает span с ошбками, включает выделение невалидного поля
-function showError({ inputErrorClass, errorClass }, inputElement, errorMassage) {
+function showErrors({ inputErrorClass, errorClass }, inputElement, errorMassage) {
   const popupError = document.querySelector(`.popup__error_type_${inputElement.name}`);
   inputElement.classList.add(inputErrorClass);
   popupError.classList.add(errorClass);
@@ -65,7 +65,7 @@ function showError({ inputErrorClass, errorClass }, inputElement, errorMassage) 
 }
 
 // скрывает span с ошбками, выключает выделение невалидного поля
-function hideError({ inputErrorClass, errorClass }, inputElement) {
+function hideErrors({ inputErrorClass, errorClass }, inputElement) {
   const popupError = document.querySelector(`.popup__error_type_${inputElement.name}`);
   inputElement.classList.remove(inputErrorClass);
   popupError.classList.remove(errorClass);
