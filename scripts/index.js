@@ -6,6 +6,7 @@ const inputName = profileEditPopup.querySelector('.popup__input_type_name');
 const inputInfo = profileEditPopup.querySelector('.popup__input_type_info');
 const profileEditCloseBtn = profileEditPopup.querySelector('.popup__close-button');
 const profileEditSave = profileEditPopup.querySelector('#save');
+const profileSubmitBtn = profileEditSave.querySelector('.popup__submit-button');
 
 // --------------------------------------------------------------
 
@@ -35,14 +36,14 @@ const cardsBox = document.querySelector('.place-grid__places');
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeWithEsc);
-  document.addEventListener('click', closeWithOverlay);
+  document.addEventListener('mousedown', closeWithOverlay);
 }
 
 // закрытие попапа
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeWithEsc);
-  document.removeEventListener('click', closeWithOverlay);
+  document.removeEventListener('mousedown', closeWithOverlay);
 }
 
 // заткрытие попапа кнопкой Esc
@@ -69,8 +70,7 @@ function handleOpenEditProfilePopup(popup) {
   inputName.value = profileName.textContent;
   inputInfo.value = profileInfo.textContent;
 
-  //const inputList = Array.from(popup.querySelectorAll('.popup__input'));
-
+  switchSubmitBtnState(settings, profileSubmitBtn, profileEditSave);
 }
 
 // сохранение ред.профиля
@@ -79,9 +79,6 @@ function handleProfileEditSubmit(evt) {
 
   profileName.textContent = inputName.value;
   profileInfo.textContent = inputInfo.value;
-  // console.log(settings)
-  const submitBtn = profileEditSave.querySelector('.popup__submit-button')
-  //switchSubmitBtnState(settings, submitBtn, profileEditSave)
 }
 
 // ------ popup_add-place -----------------------------------------------

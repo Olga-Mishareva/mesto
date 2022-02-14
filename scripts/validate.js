@@ -1,3 +1,12 @@
+const settings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}
+
 // при вызове диструктурирует переданный объект
 // достает из restSettings нужное и передает глубже в форме {...restSettings}
 function enableValidation({ formSelector, ...restSettings }) {
@@ -13,12 +22,12 @@ function enableValidation({ formSelector, ...restSettings }) {
 function setEventListeners({ inputSelector, submitButtonSelector, ...restSettings }, formElement) {
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   const submitBtn = formElement.querySelector(submitButtonSelector);
-  switchSubmitBtnState(restSettings, inputList, submitBtn);
+  switchSubmitBtnState(restSettings, submitBtn, formElement);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function() {
       checkInputValidity(restSettings, inputElement);
-      switchSubmitBtnState(restSettings, inputList, submitBtn);
+      switchSubmitBtnState(restSettings, submitBtn, formElement);
     });
   });
 }
@@ -26,7 +35,6 @@ function setEventListeners({ inputSelector, submitButtonSelector, ...restSetting
 // проверяет валидность каждого нажатия
 // принятые restSettings предает глубже
 function checkInputValidity ({ ...restSettings }, inputElement) {
-
   if(!inputElement.validity.valid) {
     showError(restSettings, inputElement, inputElement.validationMessage);
   }
@@ -35,23 +43,13 @@ function checkInputValidity ({ ...restSettings }, inputElement) {
   }
 }
 
-// проверяет, есть ли в списке инпутов данной формы невалидные поля
-function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    // console.log(inputElement.validity)
-    return !inputElement.validity.valid;
-  })
-}
-
 // отключает submit, если есть хоть одно невалидное поле
-function switchSubmitBtnState({ inactiveButtonClass }, inputList, submitBtn) {
-  if(hasInvalidInput(inputList)) {
-    // console.log(hasInvalidInput(inputList))
+function switchSubmitBtnState({ inactiveButtonClass }, submitBtn, formElement) {
+  if(!formElement.checkValidity()) {
     submitBtn.classList.add(inactiveButtonClass);
     submitBtn.setAttribute('disabled', '');
   }
   else {
-    // console.log(hasInvalidInput(inputList))
     submitBtn.classList.remove(inactiveButtonClass);
     submitBtn.removeAttribute('disabled');
   }
@@ -74,14 +72,7 @@ function hideError({ inputErrorClass, errorClass }, inputElement) {
   popupError.textContent = '';
 }
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
+enableValidation(settings);
 
 
 
