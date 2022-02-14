@@ -34,12 +34,31 @@ const cardsBox = document.querySelector('.place-grid__places');
 // открытие попапа
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  // console.log(inputName.validity.valid)
+  document.addEventListener('keydown', closeWithEsc);
+  document.addEventListener('click', closeWithOverlay);
 }
 
 // закрытие попапа
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeWithEsc);
+  document.removeEventListener('click', closeWithOverlay);
+}
+
+// заткрытие попапа кнопкой Esc
+function closeWithEsc(evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+  if(evt.key === 'Escape') {
+    closePopup(popupOpened);
+  }
+}
+
+// заткрытие попапа кликом на Overlay
+function closeWithOverlay(evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+  if(evt.target === popupOpened) {
+    closePopup(popupOpened);
+  }
 }
 
 // ------ popup_edit-profile -----------------------------------------------
@@ -60,7 +79,7 @@ function handleProfileEditSubmit(evt) {
 
   profileName.textContent = inputName.value;
   profileInfo.textContent = inputInfo.value;
-  console.log(settings)
+  // console.log(settings)
   const submitBtn = profileEditSave.querySelector('.popup__submit-button')
   //switchSubmitBtnState(settings, submitBtn, profileEditSave)
 }
@@ -133,6 +152,7 @@ function showImage(evt) {
 
 renderInitialCards();
 
+
 // ---- POPUP LISTENER ----
 
 // кнопка открытия ред.профиля
@@ -166,17 +186,11 @@ cardAddSave.addEventListener('submit', (evt) => {
   closePopup(cardAddPopup);
 });
 
-
 // ----------------------------------------------------
 
 // кнопка закрытия показа картинки
 imageCloseBtn.addEventListener('click', () => closePopup(imagePopup));
 
-// ----------------------------------------------------------------
 
-//
-const overlayList = Array.from(document.querySelectorAll('.popup'));
-overlayList.forEach((overlay) => {
-  overlay.addEventListener('click', () => closePopup(overlay));
-})
+
 
