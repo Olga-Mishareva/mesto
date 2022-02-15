@@ -55,10 +55,11 @@ function closePopup(popup) {
 function closeWithEsc(evt) {
   const popupOpened = document.querySelector('.popup_opened');
   const formElement = popupOpened.querySelector('.popup__form');
-  console.log(formElement)
   if(evt.key === 'Escape') {
-    formElement.reset();
     closePopup(popupOpened);
+    if(formElement !== null) {
+      formElement.reset();
+    }
   }
 }
 
@@ -66,12 +67,14 @@ function closeWithEsc(evt) {
 function closeWithOverlay(evt) {
   const popupOpened = document.querySelector('.popup_opened');
   const formElement = popupOpened.querySelector('.popup__form');
-  console.log(formElement)
   if(evt.target === popupOpened) {
-    formElement.reset();
     closePopup(popupOpened);
+    if(formElement !== null) {
+      formElement.reset();
+    }
   }
 }
+
 
 // скрывает старые сообщения об ошибках при новом открытии попапа
 function hideIrrelevantErrors(popup) {
