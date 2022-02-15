@@ -16,6 +16,7 @@ const inputCard = cardAddPopup.querySelector('.popup__input_type_place');
 const inputLink = cardAddPopup.querySelector('.popup__input_type_link');
 const cardAddCloseBtn = cardAddPopup.querySelector('.popup__close-button');
 const cardAddSave = cardAddPopup.querySelector('#add');
+const cardAddSubmitBtn = cardAddPopup.querySelector('.popup__submit-button');
 
 // ----------------------------------------------------------------
 
@@ -45,6 +46,7 @@ function openPopup(popup) {
 // закрытие попапа
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+
   document.removeEventListener('keydown', closeWithEsc);
   document.removeEventListener('mousedown', closeWithOverlay);
 }
@@ -53,6 +55,7 @@ function closePopup(popup) {
 function closeWithEsc(evt) {
   const popupOpened = document.querySelector('.popup_opened');
   const formElement = popupOpened.querySelector('.popup__form');
+  console.log(formElement)
   if(evt.key === 'Escape') {
     formElement.reset();
     closePopup(popupOpened);
@@ -63,6 +66,7 @@ function closeWithEsc(evt) {
 function closeWithOverlay(evt) {
   const popupOpened = document.querySelector('.popup_opened');
   const formElement = popupOpened.querySelector('.popup__form');
+  console.log(formElement)
   if(evt.target === popupOpened) {
     formElement.reset();
     closePopup(popupOpened);
@@ -85,8 +89,6 @@ function handleOpenEditProfilePopup(popup) {
 
   inputName.value = profileName.textContent;
   inputInfo.value = profileInfo.textContent;
-
-  switchSubmitBtnState(settings, profileSubmitBtn, profileEditSave);
 }
 
 // сохранение ред.профиля
@@ -171,6 +173,7 @@ renderInitialCards();
 // кнопка открытия ред.профиля
 editBtn.addEventListener('click', function () {
   handleOpenEditProfilePopup(profileEditPopup);
+  switchSubmitBtnState(settings, profileSubmitBtn, profileEditSave);
 });
 
 // кнопка закрытия ред.профиля
@@ -185,7 +188,10 @@ profileEditSave.addEventListener('submit', function (evt) {
 // ----------------------------------------------------
 
 // кнопка добавить карточку
-addBtn.addEventListener('click', () => openPopup(cardAddPopup));
+addBtn.addEventListener('click', () => {
+  openPopup(cardAddPopup);
+  switchSubmitBtnState(settings, cardAddSubmitBtn, cardAddSave);
+});
 
 // кнопка закрытия попапа добавления карточки
 cardAddCloseBtn.addEventListener('click', function () {
