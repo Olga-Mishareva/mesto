@@ -37,8 +37,6 @@ const cardsBox = document.querySelector('.place-grid__places');
 function openPopup(popup) {
   popup.classList.add('popup_opened');
 
-  hideIrrelevantErrors(popup);
-
   document.addEventListener('keydown', closeWithEsc);
   document.addEventListener('mousedown', closeWithOverlay);
 }
@@ -53,25 +51,16 @@ function closePopup(popup) {
 
 // заткрытие попапа кнопкой Esc
 function closeWithEsc(evt) {
-  const popupOpened = document.querySelector('.popup_opened');
-  const formElement = popupOpened.querySelector('.popup__form');
   if(evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
-    if(formElement !== null) {
-      formElement.reset();
-    }
   }
 }
 
 // заткрытие попапа кликом на Overlay
 function closeWithOverlay(evt) {
-  const popupOpened = document.querySelector('.popup_opened');
-  const formElement = popupOpened.querySelector('.popup__form');
-  if(evt.target === popupOpened) {
-    closePopup(popupOpened);
-    if(formElement !== null) {
-      formElement.reset();
-    }
+  if(evt.target.classList.contains('popup_opened')) {
+    closePopup(evt.target);
   }
 }
 
@@ -89,6 +78,7 @@ function hideIrrelevantErrors(popup) {
 // заполнение ред.профиля
 function handleOpenEditProfilePopup(popup) {
   openPopup(popup);
+  hideIrrelevantErrors(popup);
 
   inputName.value = profileName.textContent;
   inputInfo.value = profileInfo.textContent;
@@ -114,8 +104,9 @@ function renderInitialCards() {
 function createCard(item) {
   const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
   initialCard.querySelector('.place__title').textContent = item.name;
-  initialCard.querySelector('.place__image').src = item.link;
-  initialCard.querySelector('.place__image').alt = item.name;
+  const placeImage = initialCard.querySelector('.place__image');
+  placeImage.src = item.link;
+  placeImage.alt = item.name;
 
   addListeners(initialCard);
   return initialCard;
@@ -198,7 +189,6 @@ addBtn.addEventListener('click', () => {
 
 // кнопка закрытия попапа добавления карточки
 cardAddCloseBtn.addEventListener('click', function () {
-  cardAddSave.reset();
   closePopup(cardAddPopup);
 });
 
