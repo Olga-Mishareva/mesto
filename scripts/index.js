@@ -4,7 +4,6 @@ const editBtn = document.querySelector('.profile__edit-button');
 const profileEditPopup = document.querySelector('.popup_type_edit-profile');
 const inputName = profileEditPopup.querySelector('.popup__input_type_name');
 const inputInfo = profileEditPopup.querySelector('.popup__input_type_info');
-const profileEditCloseBtn = profileEditPopup.querySelector('.popup__close-button');
 const profileEditSave = profileEditPopup.querySelector('#save');
 const profileSubmitBtn = profileEditSave.querySelector('.popup__submit-button');
 
@@ -14,7 +13,6 @@ const addBtn = document.querySelector('.profile__add-button');
 const cardAddPopup = document.querySelector('.popup_type_add-place');
 const inputCard = cardAddPopup.querySelector('.popup__input_type_place');
 const inputLink = cardAddPopup.querySelector('.popup__input_type_link');
-const cardAddCloseBtn = cardAddPopup.querySelector('.popup__close-button');
 const cardAddSave = cardAddPopup.querySelector('#add');
 const cardAddSubmitBtn = cardAddPopup.querySelector('.popup__submit-button');
 
@@ -23,13 +21,13 @@ const cardAddSubmitBtn = cardAddPopup.querySelector('.popup__submit-button');
 const imagePopup = document.querySelector('.popup_type_show-image');
 const cardImage = imagePopup.querySelector('.popup__image');
 const cardCaption = imagePopup.querySelector('.popup__caption');
-const imageCloseBtn = imagePopup.querySelector('.popup__close-button_type_show');
 
 // ----------------------------------------------------------------
 
 const cardTemplate = document.querySelector('#card').content;
 const cardsBox = document.querySelector('.place-grid__places');
 
+const popupList = Array.from(document.querySelectorAll('.popup'));
 
 // ------- HANDLE POPUP -------
 
@@ -38,7 +36,6 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
 
   document.addEventListener('keydown', closeWithEsc);
-  document.addEventListener('mousedown', closeWithOverlay);
 }
 
 // закрытие попапа
@@ -46,7 +43,6 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 
   document.removeEventListener('keydown', closeWithEsc);
-  document.removeEventListener('mousedown', closeWithOverlay);
 }
 
 // заткрытие попапа кнопкой Esc
@@ -56,14 +52,6 @@ function closeWithEsc(evt) {
     closePopup(popupOpened);
   }
 }
-
-// заткрытие попапа кликом на Overlay
-function closeWithOverlay(evt) {
-  if(evt.target.classList.contains('popup_opened')) {
-    closePopup(evt.target);
-  }
-}
-
 
 // скрывает старые сообщения об ошибках при новом открытии попапа
 function hideIrrelevantErrors(popup) {
@@ -170,9 +158,6 @@ editBtn.addEventListener('click', function () {
   switchSubmitBtnState(settings, profileSubmitBtn, profileEditSave);
 });
 
-// кнопка закрытия ред.профиля
-profileEditCloseBtn.addEventListener('click', () => closePopup(profileEditPopup));
-
 // кнопка сохранения профиля
 profileEditSave.addEventListener('submit', function (evt) {
   handleProfileEditSubmit(evt);
@@ -187,11 +172,6 @@ addBtn.addEventListener('click', () => {
   switchSubmitBtnState(settings, cardAddSubmitBtn, cardAddSave);
 });
 
-// кнопка закрытия попапа добавления карточки
-cardAddCloseBtn.addEventListener('click', function () {
-  closePopup(cardAddPopup);
-});
-
 // кнопка сохранения новой карточки
 cardAddSave.addEventListener('submit', (evt) => {
   handleCardAddSubmit(evt);
@@ -200,8 +180,20 @@ cardAddSave.addEventListener('submit', (evt) => {
 
 // ----------------------------------------------------
 
-// кнопка закрытия показа картинки
-imageCloseBtn.addEventListener('click', () => closePopup(imagePopup));
+// как я понимаю, обработчик закрытия попапа по Esc нужно добавлять
+// при открытии и удалять при закрытии тк иначе он будет
+// отслеживать каждый клик потому что висит на document.
+// обр. закрытия по Overlay на попапах отслеживает только клики по ним
+popupList.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if(evt.target.classList.contains('popup_opened')) {
+      closePopup(popup);
+    }
+    if(evt.target.classList.contains('popup__close-button')) {
+      closePopup(popup);
+    }
+  });
+});
 
 
 
