@@ -22,12 +22,13 @@ const imagePopup = document.querySelector('.popup_type_show-image');
 const cardImage = imagePopup.querySelector('.popup__image');
 const cardCaption = imagePopup.querySelector('.popup__caption');
 
+const popupList = Array.from(document.querySelectorAll('.popup'));
+
 // ----------------------------------------------------------------
 
-const cardTemplate = document.querySelector('#card').content;
-const cardsBox = document.querySelector('.place-grid__places');
+// const cardTemplate = document.querySelector('#card').content;
+// const cardsBox = document.querySelector('.place-grid__places');
 
-const popupList = Array.from(document.querySelectorAll('.popup'));
 
 // ------- HANDLE POPUP -------
 
@@ -90,7 +91,7 @@ function renderInitialCards() {
 
 // создание карточек, навешивает слушатели лайка, удаления и показа картинки
 function createCard(item) {
-  const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
+ // const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
   initialCard.querySelector('.place__title').textContent = item.name;
   const placeImage = initialCard.querySelector('.place__image');
   placeImage.src = item.link;
