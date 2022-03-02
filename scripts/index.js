@@ -180,10 +180,7 @@ cardAddSave.addEventListener('submit', (evt) => {
 
 // ----------------------------------------------------
 
-// как я понимаю, обработчик закрытия попапа по Esc нужно добавлять
-// при открытии и удалять при закрытии тк иначе он будет
-// отслеживать каждый клик потому что висит на document.
-// обр. закрытия по Overlay на попапах отслеживает только клики по ним
+// обр. закрытия по Overlay и по крестику
 popupList.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
     if(evt.target.classList.contains('popup_opened')) {
