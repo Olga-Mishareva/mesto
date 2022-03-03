@@ -25,8 +25,6 @@ const initialCards = [
   },
 ];
 
-//const cardTemplate = document.querySelector('#card').content;
-//const cardsBox = document.querySelector('.place-grid__places');
 
 class Card {
   constructor(data, selector) {
@@ -56,28 +54,25 @@ class Card {
     return this._element;
   }
 
+
   _setListeners() {
     this._element.addEventListener('click', (evt) => {
-      this._likeCard(evt);
-    })
-
-    this._element.addEventListener('click', (evt) => {
-      this._removeCard(evt);
+      if(evt.target === this._element.querySelector('.place__stroke')) {
+        this._likeCard(evt);
+      }
+      else if(evt.target === this._element.querySelector('.place__trash')) {
+        this._removeCard(evt);
+      }
     })
   }
 
-  _likeCard() {
+  _likeCard(evt) {
     evt.target.classList.toggle('place__stroke_liked');
   }
 
-  _removeCard() {
+  _removeCard(evt) {
     evt.target.closest('.place').remove();
   }
-
-  // _showImage() {
-
-  // }
-
 
 }
 

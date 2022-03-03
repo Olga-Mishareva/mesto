@@ -94,13 +94,50 @@ function renderInitialCards() {
   initialCards.forEach((item) => addCard(item));
 }
 
+// создание новой карточки
+function getNewCard() {
+  const newCard = {
+    name: inputCard.value,
+    link: inputLink.value,
+  };
+  addCard(newCard);
+}
+
+// function buildCard(item) {
+//   const card = new Card(item, '#card');
+//   const cardElement = card.createCard();
+//   addCard(cardElement);
+// }
+
 // добавление карточки в DOM
 function addCard(item) {
   const card = new Card(item, '#card');
   const cardElement = card.createCard();
-
   cardsBox.prepend(cardElement);
+  addListener(cardElement);
 }
+
+// добавление слушателя на карточки
+function addListener(elem) {
+  elem.querySelector('.place__image').addEventListener('click', showImage);
+}
+
+// сохрание новой карточки
+function handleCardAddSubmit(evt) {
+  evt.preventDefault();
+  getNewCard();
+  cardAddSave.reset();
+}
+
+// показ картинки
+function showImage(evt) {
+  openPopup(imagePopup);
+  cardImage.src = evt.target.src;
+  cardImage.alt = evt.target.alt;
+  cardCaption.textContent = evt.target.alt;
+}
+
+renderInitialCards();
 
 // создание карточек, навешивает слушатели лайка, удаления и показа картинки
 //function createCard(item) {
@@ -115,31 +152,6 @@ function addCard(item) {
   // return initialCard;
 //}
 
-
-
-// добавление слушателей на карточку
-// function addListeners(elem) {
-//   elem.querySelector('.place__stroke').addEventListener('click', likeCard);
-//   elem.querySelector('.place__trash').addEventListener('click', removeCard);
-//   elem.querySelector('.place__image').addEventListener('click', showImage);
-// }
-
-// создание новой карточки
-function createNewCard() {
-  const newCard = {
-    name: inputCard.value,
-    link: inputLink.value,
-  };
-  addCard(newCard);
-}
-
-// сохрание новой карточки
-function handleCardAddSubmit(evt) {
-  evt.preventDefault();
-  createNewCard();
-  cardAddSave.reset();
-}
-
 // // удаление карточки из DOM
 // function removeCard(evt) {
 //   evt.target.closest('.place').remove();
@@ -150,16 +162,7 @@ function handleCardAddSubmit(evt) {
 //   evt.target.classList.toggle('place__stroke_liked');
 // }
 
-// показ картинки
-function showImage(evt) {
-  openPopup(imagePopup);
-  cardImage.src = evt.target.src;
-  cardImage.alt = evt.target.alt;
-  cardCaption.textContent = evt.target.alt;
-}
 
-
-renderInitialCards();
 
 
 // ---- POPUP LISTENER ----
@@ -203,7 +206,5 @@ popupList.forEach((popup) => {
     }
   });
 });
-
-
 
 
