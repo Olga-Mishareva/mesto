@@ -1,3 +1,8 @@
+import {Card, initialCards} from './Card.js';
+
+// console.log(new Card)
+// console.log(initialCards)
+
 const profileName = document.querySelector('.profile__name');
 const profileInfo = document.querySelector('.profile__info');
 const editBtn = document.querySelector('.profile__edit-button');
@@ -27,7 +32,7 @@ const popupList = Array.from(document.querySelectorAll('.popup'));
 // ----------------------------------------------------------------
 
 // const cardTemplate = document.querySelector('#card').content;
-// const cardsBox = document.querySelector('.place-grid__places');
+const cardsBox = document.querySelector('.place-grid__places');
 
 
 // ------- HANDLE POPUP -------
@@ -86,32 +91,38 @@ function handleProfileEditSubmit(evt) {
 
 // отрисовка массива карточек
 function renderInitialCards() {
-  initialCards.forEach(addCard);
-}
-
-// создание карточек, навешивает слушатели лайка, удаления и показа картинки
-function createCard(item) {
- // const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
-  initialCard.querySelector('.place__title').textContent = item.name;
-  const placeImage = initialCard.querySelector('.place__image');
-  placeImage.src = item.link;
-  placeImage.alt = item.name;
-
-  addListeners(initialCard);
-  return initialCard;
+  initialCards.forEach((item) => addCard(item));
 }
 
 // добавление карточки в DOM
-function addCard(card) {
-  cardsBox.prepend(createCard(card));
+function addCard(item) {
+  const card = new Card(item, '#card');
+  const cardElement = card.createCard();
+
+  cardsBox.prepend(cardElement);
 }
 
+// создание карточек, навешивает слушатели лайка, удаления и показа картинки
+//function createCard(item) {
+
+ // const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
+  // initialCard.querySelector('.place__title').textContent = item.name;
+  // const placeImage = initialCard.querySelector('.place__image');
+  // placeImage.src = item.link;
+  // placeImage.alt = item.name;
+
+  //addListeners(initialCard);
+  // return initialCard;
+//}
+
+
+
 // добавление слушателей на карточку
-function addListeners(elem) {
-  elem.querySelector('.place__stroke').addEventListener('click', likeCard);
-  elem.querySelector('.place__trash').addEventListener('click', removeCard);
-  elem.querySelector('.place__image').addEventListener('click', showImage);
-}
+// function addListeners(elem) {
+//   elem.querySelector('.place__stroke').addEventListener('click', likeCard);
+//   elem.querySelector('.place__trash').addEventListener('click', removeCard);
+//   elem.querySelector('.place__image').addEventListener('click', showImage);
+// }
 
 // создание новой карточки
 function createNewCard() {
@@ -129,15 +140,15 @@ function handleCardAddSubmit(evt) {
   cardAddSave.reset();
 }
 
-// удаление карточки из DOM
-function removeCard(evt) {
-  evt.target.closest('.place').remove();
-}
+// // удаление карточки из DOM
+// function removeCard(evt) {
+//   evt.target.closest('.place').remove();
+// }
 
-// лайк карточки
-function likeCard(evt) {
-  evt.target.classList.toggle('place__stroke_liked');
-}
+// // лайк карточки
+// function likeCard(evt) {
+//   evt.target.classList.toggle('place__stroke_liked');
+// }
 
 // показ картинки
 function showImage(evt) {

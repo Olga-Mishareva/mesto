@@ -26,12 +26,12 @@ const initialCards = [
 ];
 
 //const cardTemplate = document.querySelector('#card').content;
-const cardsBox = document.querySelector('.place-grid__places');
+//const cardsBox = document.querySelector('.place-grid__places');
 
 class Card {
-  constructor(name, link, selector) {
-    this._name = name;
-    this._link = link;
+  constructor(data, selector) {
+    this._name = data.name;
+    this._link = data.link;
     this._selector = selector;
   }
 
@@ -44,15 +44,41 @@ class Card {
   }
 
   createCard() {
-    this._element = this._getTemplate;
+    this._element = this._getTemplate();
 
     this._element.querySelector('.place__title').textContent = this._name;
     this._image = this._element.querySelector('.place__image');
     this._image.src = this._link;
     this._image.alt = this._name;
 
+    this._setListeners();
+
     return this._element;
   }
 
+  _setListeners() {
+    this._element.addEventListener('click', (evt) => {
+      this._likeCard(evt);
+    })
+
+    this._element.addEventListener('click', (evt) => {
+      this._removeCard(evt);
+    })
+  }
+
+  _likeCard() {
+    evt.target.classList.toggle('place__stroke_liked');
+  }
+
+  _removeCard() {
+    evt.target.closest('.place').remove();
+  }
+
+  // _showImage() {
+
+  // }
+
 
 }
+
+export {Card, initialCards}
