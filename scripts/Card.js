@@ -33,6 +33,7 @@ class Card {
     this._selector = selector;
   }
 
+  // создет копию teplate
   _getTemplate() {
     const cardElement = document
     .querySelector(this._selector).content
@@ -41,6 +42,7 @@ class Card {
     return cardElement;
   }
 
+  // создает карточку
   createCard() {
     this._element = this._getTemplate();
 
@@ -54,14 +56,14 @@ class Card {
     return this._element;
   }
 
-
+  // навешивает обработчики лайка и удаления
   _setListeners() {
     this._element.addEventListener('click', (evt) => {
       if(evt.target === this._element.querySelector('.place__stroke')) {
         this._likeCard(evt);
       }
       else if(evt.target === this._element.querySelector('.place__trash')) {
-        this._removeCard(evt);
+        this._removeCard();
       }
     })
   }
@@ -70,8 +72,8 @@ class Card {
     evt.target.classList.toggle('place__stroke_liked');
   }
 
-  _removeCard(evt) {
-    evt.target.closest('.place').remove();
+  _removeCard() {
+    this._element.remove();
   }
 
 }

@@ -1,4 +1,5 @@
 import {Card, initialCards} from './Card.js';
+import {FormValidator, settings} from './FormValidator.js';
 
 
 const profileName = document.querySelector('.profile__name');
@@ -29,8 +30,17 @@ const popupList = Array.from(document.querySelectorAll('.popup'));
 
 // ----------------------------------------------------------------
 
-// const cardTemplate = document.querySelector('#card').content;
 const cardsBox = document.querySelector('.place-grid__places');
+
+
+// -------------- ENABLE VALIDATION ------------------
+
+const formList = Array.from(document.querySelectorAll('.popup__form'));
+formList.forEach((formElement) => {
+  const validator = new FormValidator(settings, formElement);
+  // console.log(validator)
+  validator.enableValidation(settings, formElement);
+});
 
 
 // ------- HANDLE POPUP -------
@@ -57,11 +67,12 @@ function closeWithEsc(evt) {
   }
 }
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // скрывает старые сообщения об ошибках при новом открытии попапа
 function hideIrrelevantErrors(popup) {
   const inputList = Array.from(popup.querySelectorAll('.popup__input'));
   inputList.forEach((inputElement) => {
-   // hideErrors(settings, inputElement); !!!!!!!!!!!!!!
+    // hideErrors(settings, inputElement);
   })
 }
 
@@ -70,7 +81,7 @@ function hideIrrelevantErrors(popup) {
 // заполнение ред.профиля
 function handleOpenEditProfilePopup(popup) {
   openPopup(popup);
-  hideIrrelevantErrors(popup);
+  //hideIrrelevantErrors(popup);
 
   inputName.value = profileName.textContent;
   inputInfo.value = profileInfo.textContent;
@@ -109,11 +120,6 @@ function addCard(item) {
   addListener(cardElement);
 }
 
-// добавление слушателя на карточки
-function addListener(elem) {
-  elem.querySelector('.place__image').addEventListener('click', showImage);
-}
-
 // сохрание новой карточки
 function handleCardAddSubmit(evt) {
   evt.preventDefault();
@@ -133,6 +139,11 @@ renderInitialCards();
 
 
 // ---- POPUP LISTENER ----
+
+// добавление показа картинки при клике на карточку
+function addListener(elem) {
+  elem.querySelector('.place__image').addEventListener('click', showImage);
+}
 
 // кнопка открытия ред.профиля
 editBtn.addEventListener('click', function () {
