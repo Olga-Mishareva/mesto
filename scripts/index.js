@@ -1,7 +1,5 @@
 import {Card, initialCards} from './Card.js';
 
-// console.log(new Card)
-// console.log(initialCards)
 
 const profileName = document.querySelector('.profile__name');
 const profileInfo = document.querySelector('.profile__info');
@@ -63,7 +61,7 @@ function closeWithEsc(evt) {
 function hideIrrelevantErrors(popup) {
   const inputList = Array.from(popup.querySelectorAll('.popup__input'));
   inputList.forEach((inputElement) => {
-    hideErrors(settings, inputElement);
+   // hideErrors(settings, inputElement); !!!!!!!!!!!!!!
   })
 }
 
@@ -103,12 +101,6 @@ function getNewCard() {
   addCard(newCard);
 }
 
-// function buildCard(item) {
-//   const card = new Card(item, '#card');
-//   const cardElement = card.createCard();
-//   addCard(cardElement);
-// }
-
 // добавление карточки в DOM
 function addCard(item) {
   const card = new Card(item, '#card');
@@ -139,38 +131,13 @@ function showImage(evt) {
 
 renderInitialCards();
 
-// создание карточек, навешивает слушатели лайка, удаления и показа картинки
-//function createCard(item) {
-
- // const initialCard = cardTemplate.querySelector('.place').cloneNode(true);
-  // initialCard.querySelector('.place__title').textContent = item.name;
-  // const placeImage = initialCard.querySelector('.place__image');
-  // placeImage.src = item.link;
-  // placeImage.alt = item.name;
-
-  //addListeners(initialCard);
-  // return initialCard;
-//}
-
-// // удаление карточки из DOM
-// function removeCard(evt) {
-//   evt.target.closest('.place').remove();
-// }
-
-// // лайк карточки
-// function likeCard(evt) {
-//   evt.target.classList.toggle('place__stroke_liked');
-// }
-
-
-
 
 // ---- POPUP LISTENER ----
 
 // кнопка открытия ред.профиля
 editBtn.addEventListener('click', function () {
   handleOpenEditProfilePopup(profileEditPopup);
-  switchSubmitBtnState(settings, profileSubmitBtn, profileEditSave);
+ // switchSubmitBtnState(settings, profileSubmitBtn, profileEditSave); !!!!!!!!!!!!!
 });
 
 // кнопка сохранения профиля
@@ -184,7 +151,7 @@ profileEditSave.addEventListener('submit', function (evt) {
 // кнопка добавить карточку
 addBtn.addEventListener('click', () => {
   openPopup(cardAddPopup);
-  switchSubmitBtnState(settings, cardAddSubmitBtn, cardAddSave);
+ // switchSubmitBtnState(settings, cardAddSubmitBtn, cardAddSave); !!!!!!!!!!!!
 });
 
 // кнопка сохранения новой карточки
