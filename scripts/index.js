@@ -2,6 +2,7 @@ import {Card, initialCards} from './Card.js';
 import {FormValidator, settings} from './FormValidator.js';
 
 
+const editForm = document.querySelector('#save');
 const profileName = document.querySelector('.profile__name');
 const profileInfo = document.querySelector('.profile__info');
 const editBtn = document.querySelector('.profile__edit-button');
@@ -13,6 +14,7 @@ const profileSubmitBtn = profileEditSave.querySelector('.popup__submit-button');
 
 // --------------------------------------------------------------
 
+const addForm = document.querySelector('#add');
 const addBtn = document.querySelector('.profile__add-button');
 const cardAddPopup = document.querySelector('.popup_type_add-place');
 const inputCard = cardAddPopup.querySelector('.popup__input_type_place');
@@ -28,19 +30,12 @@ const cardCaption = imagePopup.querySelector('.popup__caption');
 
 const popupList = Array.from(document.querySelectorAll('.popup'));
 
-// ----------------------------------------------------------------
-
 const cardsBox = document.querySelector('.place-grid__places');
 
+// ----------------------------------------------
 
-// -------------- ENABLE VALIDATION ------------------
-
-const formList = Array.from(document.querySelectorAll('.popup__form'));
-formList.forEach((formElement) => {
-  const validator = new FormValidator(settings, formElement);
-  // console.log(validator)
-  validator.enableValidation(settings, formElement);
-});
+const editFormValidator = new FormValidator(settings, editForm);
+const addFormValidator = new FormValidator(settings, addForm);
 
 
 // ------- HANDLE POPUP -------
@@ -136,6 +131,9 @@ function showImage(evt) {
 }
 
 renderInitialCards();
+
+editFormValidator.enableValidation(settings, editForm);
+addFormValidator.enableValidation(settings, addForm);
 
 
 // ---- POPUP LISTENER ----
