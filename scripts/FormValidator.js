@@ -82,6 +82,16 @@ class FormValidator {
     this._error.classList.remove(settings.errorClass);
     this._error.textContent = '';
   }
+
+  disableButton(formElement) {
+    this._switchSubmitBtnState(formElement)
+  }
+
+  hideIrrelevantErrors(formElement) {
+    this._inputList.forEach((inputElement) => {
+      this._hideErrors(inputElement);
+    })
+  }
 }
 
 export {FormValidator, settings};

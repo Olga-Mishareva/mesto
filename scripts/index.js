@@ -43,14 +43,12 @@ const addFormValidator = new FormValidator(settings, addForm);
 // открытие попапа
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-
   document.addEventListener('keydown', closeWithEsc);
 }
 
 // закрытие попапа
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-
   document.removeEventListener('keydown', closeWithEsc);
 }
 
@@ -62,20 +60,13 @@ function closeWithEsc(evt) {
   }
 }
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// скрывает старые сообщения об ошибках при новом открытии попапа
-function hideIrrelevantErrors(popup) {
-  const inputList = Array.from(popup.querySelectorAll('.popup__input'));
-  inputList.forEach((inputElement) => {
-    // hideErrors(settings, inputElement);
-  })
-}
-
 // ------ popup_edit-profile -----------------------------------------------
+
 
 // заполнение ред.профиля
 function handleOpenEditProfilePopup(popup) {
   openPopup(popup);
+  editFormValidator.hideIrrelevantErrors(editForm);
   //hideIrrelevantErrors(popup);
 
   inputName.value = profileName.textContent;
@@ -146,7 +137,7 @@ function addListener(elem) {
 // кнопка открытия ред.профиля
 editBtn.addEventListener('click', function () {
   handleOpenEditProfilePopup(profileEditPopup);
- // switchSubmitBtnState(settings, profileSubmitBtn, profileEditSave); !!!!!!!!!!!!!
+  editFormValidator.disableButton(editForm);
 });
 
 // кнопка сохранения профиля
@@ -160,7 +151,7 @@ profileEditSave.addEventListener('submit', function (evt) {
 // кнопка добавить карточку
 addBtn.addEventListener('click', () => {
   openPopup(cardAddPopup);
- // switchSubmitBtnState(settings, cardAddSubmitBtn, cardAddSave); !!!!!!!!!!!!
+  addFormValidator.disableButton(addForm);
 });
 
 // кнопка сохранения новой карточки
