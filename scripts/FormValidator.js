@@ -18,8 +18,8 @@ class FormValidator {
     this._formElement = formElement;
   }
 
+  // включает валидацию
   enableValidation(settings, formElement) {
-
     this._setEventListeners(settings, formElement);
   }
 
@@ -29,18 +29,16 @@ class FormValidator {
     this._inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
     this._submitBtn = formElement.querySelector(settings.submitButtonSelector);
 
-    this._switchSubmitBtnState(formElement);
-
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._switchSubmitBtnState(formElement);
+        this._switchSubmitButtonState(formElement);
       });
     });
   }
 
   // отключает submit, если есть хоть одно невалидное поле
-  _switchSubmitBtnState(formElement) {
+  _switchSubmitButtonState(formElement) {
     if(!formElement.checkValidity()) {
       this._submitBtn.classList.add(settings.inactiveButtonClass);
       this._submitBtn.setAttribute('disabled', '');
@@ -61,12 +59,6 @@ class FormValidator {
     }
   }
 
-  // _checkValidity() {
-  //   return this._inputList.some((inputElement) => {
-  //     return !inputElement.validity.valid;
-  //   })
-  // }
-
   // показывает span с ошбками, включает выделение невалидного поля
   _showErrors(inputElement, errorMassage) {
     this._error = document.querySelector(`.popup__error_type_${inputElement.name}`);
@@ -83,11 +75,13 @@ class FormValidator {
     this._error.textContent = '';
   }
 
-  disableButton(formElement) {
-    this._switchSubmitBtnState(formElement)
+  // проверяет состояние кнопки при открытии профиля
+  checkButtonState(formElement) {
+    this._switchSubmitButtonState(formElement)
   }
 
-  hideIrrelevantErrors(formElement) {
+  // скрывает нерелевантные ошибки
+  hideIrrelevantErrors() {
     this._inputList.forEach((inputElement) => {
       this._hideErrors(inputElement);
     })

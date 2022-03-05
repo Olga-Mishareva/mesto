@@ -75,7 +75,6 @@ class Card {
   _removeCard() {
     this._element.remove();
   }
-
 }
 
 export {Card, initialCards}
