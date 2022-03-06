@@ -43,7 +43,7 @@ class Card {
   }
 
   // создает карточку
-  createCard() {
+  generateCard() {
     this._element = this._getTemplate();
 
     this._element.querySelector('.place__title').textContent = this._name;

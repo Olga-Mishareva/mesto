@@ -93,11 +93,18 @@ function getNewCard() {
   addCard(newCard);
 }
 
+function createCard(item) {
+  const card = new Card(item, '#card');
+  const cardElement = card.generateCard();
+  return cardElement;
+}
+
 // добавление карточки в DOM
 function addCard(item) {
-  const card = new Card(item, '#card');
-  const cardElement = card.createCard();
+  const cardElement = createCard(item);
   cardsBox.prepend(cardElement);
+
+
   addListener(cardElement);
 }
 
@@ -118,8 +125,8 @@ function showImage(evt) {
 
 renderInitialCards();
 
-editFormValidator.enableValidation(settings, editForm);
-addFormValidator.enableValidation(settings, addForm);
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
 
 
 // ---- POPUP LISTENER ----
@@ -132,7 +139,7 @@ function addListener(elem) {
 // кнопка открытия ред.профиля
 editBtn.addEventListener('click', function () {
   handleOpenEditProfilePopup(profileEditPopup);
-  editFormValidator.checkButtonState(editForm);
+  editFormValidator.checkButtonState();
 });
 
 // кнопка сохранения профиля
@@ -146,7 +153,7 @@ editForm.addEventListener('submit', function (evt) {
 // кнопка добавить карточку
 addBtn.addEventListener('click', () => {
   openPopup(cardAddPopup);
-  addFormValidator.checkButtonState(addForm);
+  addFormValidator.checkButtonState();
 });
 
 // кнопка сохранения новой карточки

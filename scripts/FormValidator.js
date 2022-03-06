@@ -19,27 +19,27 @@ class FormValidator {
   }
 
   // включает валидацию
-  enableValidation(settings, formElement) {
-    this._setEventListeners(settings, formElement);
+  enableValidation() {
+    this._setEventListeners();
   }
 
   // в кажд. форме находит все инпуты и на кажд. вешает обработчик события input
   // для кажд. нового нажатия вызывает ф.валидации и ф.контроля кнопки submit
-  _setEventListeners(settings, formElement) {
-    this._inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
-    this._submitBtn = formElement.querySelector(settings.submitButtonSelector);
+  _setEventListeners() {
+    this._inputList = Array.from(this._formElement.querySelectorAll(settings.inputSelector));
+    this._submitBtn = this._formElement.querySelector(settings.submitButtonSelector);
 
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._switchSubmitButtonState(formElement);
+        this._switchSubmitButtonState();
       });
     });
   }
 
   // отключает submit, если есть хоть одно невалидное поле
-  _switchSubmitButtonState(formElement) {
-    if(!formElement.checkValidity()) {
+  _switchSubmitButtonState() {
+    if(!this._formElement.checkValidity()) {
       this._submitBtn.classList.add(settings.inactiveButtonClass);
       this._submitBtn.setAttribute('disabled', '');
     }
@@ -61,7 +61,7 @@ class FormValidator {
 
   // показывает span с ошбками, включает выделение невалидного поля
   _showErrors(inputElement, errorMassage) {
-    this._error = document.querySelector(`.popup__error_type_${inputElement.name}`);
+    this._error = this._formElement.querySelector(`.popup__error_type_${inputElement.name}`);
     inputElement.classList.add(settings.inputErrorClass);
     this._error.classList.add(settings.errorClass);
     this._error.textContent = errorMassage;
@@ -69,15 +69,15 @@ class FormValidator {
 
   // скрывает span с ошбками, выключает выделение невалидного поля
   _hideErrors(inputElement) {
-    this._error = document.querySelector(`.popup__error_type_${inputElement.name}`);
+    this._error = this._formElement.querySelector(`.popup__error_type_${inputElement.name}`);
     inputElement.classList.remove(settings.inputErrorClass);
     this._error.classList.remove(settings.errorClass);
     this._error.textContent = '';
   }
 
   // проверяет состояние кнопки при открытии профиля
-  checkButtonState(formElement) {
-    this._switchSubmitButtonState(formElement)
+  checkButtonState() {
+    this._switchSubmitButtonState()
   }
 
   // скрывает нерелевантные ошибки
