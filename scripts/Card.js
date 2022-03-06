@@ -46,8 +46,11 @@ class Card {
   generateCard() {
     this._element = this._getTemplate();
 
-    this._element.querySelector('.place__title').textContent = this._name;
     this._image = this._element.querySelector('.place__image');
+    this._stroke = this._element.querySelector('.place__stroke');
+    this._trash = this._element.querySelector('.place__trash');
+
+    this._element.querySelector('.place__title').textContent = this._name;
     this._image.src = this._link;
     this._image.alt = this._name;
 
@@ -56,16 +59,14 @@ class Card {
     return this._element;
   }
 
-  // навешивает обработчики лайка и удаления
+  // навешивает обработчики событий на карточку
   _setListeners() {
-    this._element.addEventListener('click', (evt) => {
-      if(evt.target === this._element.querySelector('.place__stroke')) {
-        this._likeCard(evt);
-      }
-      else if(evt.target === this._element.querySelector('.place__trash')) {
-        this._removeCard();
-      }
-    })
+    this._stroke.addEventListener('click', (evt) => {
+      this._likeCard(evt);
+    });
+    this._trash.addEventListener('click', (evt) => {
+      this._removeCard(evt);
+    });
   }
 
   _likeCard(evt) {
