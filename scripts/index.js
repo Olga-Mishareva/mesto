@@ -30,8 +30,16 @@ const cardsBox = document.querySelector('.place-grid__places');
 
 // ----------------------------------------------
 
-const editFormValidator = new FormValidator(settings, editForm);
-const addFormValidator = new FormValidator(settings, addForm);
+
+const formValidators = {};
+
+const formList = Array.from(document.querySelectorAll('.popup__form'));
+formList.forEach((formElement) => {
+  const validator = new FormValidator(settings, formElement);
+  const formName = formElement.getAttribute('name');
+  formValidators[formName] = validator;
+  validator.enableValidation();
+});
 
 
 // ------- HANDLE POPUP -------
@@ -62,7 +70,7 @@ function closeWithEsc(evt) {
 // заполнение ред.профиля
 function handleOpenEditProfilePopup(popup) {
   openPopup(popup);
-  editFormValidator.hideIrrelevantErrors();
+  formValidators['profile-form'].hideIrrelevantErrors();
 
   inputName.value = profileName.textContent;
   inputInfo.value = profileInfo.textContent;
@@ -121,8 +129,6 @@ function showImage(name, link) {
 
 renderInitialCards();
 
-editFormValidator.enableValidation();
-addFormValidator.enableValidation();
 
 
 // ---- POPUP LISTENER ----
@@ -131,7 +137,7 @@ addFormValidator.enableValidation();
 // кнопка открытия ред.профиля
 editBtn.addEventListener('click', function () {
   handleOpenEditProfilePopup(profileEditPopup);
-  editFormValidator.checkButtonState();
+  formValidators['profile-form'].checkButtonState();
 });
 
 // кнопка сохранения профиля
@@ -145,7 +151,7 @@ editForm.addEventListener('submit', function (evt) {
 // кнопка добавить карточку
 addBtn.addEventListener('click', () => {
   openPopup(cardAddPopup);
-  addFormValidator.checkButtonState();
+  formValidators['add-form'].checkButtonState();
 });
 
 // кнопка сохранения новой карточки

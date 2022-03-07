@@ -29,6 +29,8 @@ class FormValidator {
     this._inputList = Array.from(this._formElement.querySelectorAll(settings.inputSelector));
     this._submitBtn = this._formElement.querySelector(settings.submitButtonSelector);
 
+    this._switchSubmitButtonState();
+
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
@@ -77,7 +79,7 @@ class FormValidator {
 
   // проверяет состояние кнопки при открытии профиля
   checkButtonState() {
-    this._switchSubmitButtonState()
+    this._switchSubmitButtonState();
   }
 
   // скрывает нерелевантные ошибки
