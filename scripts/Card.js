@@ -27,17 +27,17 @@ const initialCards = [
 
 
 class Card {
-  constructor(data, selector, handleCardClick) {
+  constructor(data, templateSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
-    this._selector = selector;
+    this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
   }
 
-  // создет копию teplate
+  // создет копию template
   _getTemplate() {
     const cardElement = document
-    .querySelector(this._selector).content
+    .querySelector(this._templateSelector).content
     .querySelector('.place').cloneNode(true);
 
     return cardElement;

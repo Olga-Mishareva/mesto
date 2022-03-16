@@ -1,6 +1,7 @@
 import {Card, initialCards} from './Card.js';
 import {FormValidator, settings} from './FormValidator.js';
 import {Section} from './Section.js';
+import {Popup} from './Popup.js';
 
 
 const editForm = document.querySelector('#save');
@@ -45,32 +46,43 @@ formList.forEach((formElement) => {
 
 // ------- HANDLE POPUP -------
 
+// const popup = new Popup(popupSelector);
+
 // открытие попапа
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closeWithEsc);
-}
+// function openPopup(popup) {
+//   popup.classList.add('popup_opened');
+//   document.addEventListener('keydown', closeWithEsc);
+// }
 
 // закрытие попапа
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeWithEsc);
-}
+// function closePopup(popup) {
+//   popup.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', closeWithEsc);
+// }
 
 // заткрытие попапа кнопкой Esc
-function closeWithEsc(evt) {
-  if(evt.key === 'Escape') {
-    const popupOpened = document.querySelector('.popup_opened');
-    closePopup(popupOpened);
-  }
-}
+// function closeWithEsc(evt) {
+//   if(evt.key === 'Escape') {
+//     const popupOpened = document.querySelector('.popup_opened');
+//     closePopup(popupOpened);
+//   }
+// }
 
 // ------ popup_edit-profile -----------------------------------------------
 
 
 // заполнение ред.профиля
-function handleOpenEditProfilePopup(popup) {
-  openPopup(popup);
+// function handleOpenEditProfilePopup(popup) {
+//   openPopup(popup);
+//   formValidators['profile-form'].hideIrrelevantErrors();
+
+//   inputName.value = profileName.textContent;
+//   inputInfo.value = profileInfo.textContent;
+// }
+
+function handleOpenEditProfilePopup() {
+  const popup = new Popup('.popup_type_edit-profile');
+  popup.openPopup();
   formValidators['profile-form'].hideIrrelevantErrors();
 
   inputName.value = profileName.textContent;
@@ -87,6 +99,7 @@ function handleProfileEditSubmit(evt) {
 
 // ------ popup_add-place -----------------------------------------------
 
+// NEW !!!
 const cardsGrid = new Section({
   items: initialCards,
   renderer: (item) => {
@@ -113,11 +126,19 @@ function handleCardAddSubmit(evt) {
 }
 
 // показ попапа с каринкой
+// function handleCardClick(name, link) {
+//   cardImage.src = link;
+//   cardImage.alt = name;
+//   cardCaption.textContent = name;
+//   openPopup(imagePopup);
+// }
+
 function handleCardClick(name, link) {
   cardImage.src = link;
   cardImage.alt = name;
   cardCaption.textContent = name;
-  openPopup(imagePopup);
+  const popup = new Popup('.popup_type_show-image');
+  popup.openPopup();
 }
 
 cardsGrid.renderItems();
@@ -160,21 +181,29 @@ editBtn.addEventListener('click', function () {
 // кнопка сохранения профиля
 editForm.addEventListener('submit', function (evt) {
   handleProfileEditSubmit(evt);
-  closePopup(profileEditPopup);
+  const popup = new Popup('.popup_type_edit-profile');
+  popup.closePopup();
 });
 
 // ----------------------------------------------------
 
 // кнопка добавить карточку
 addBtn.addEventListener('click', () => {
-  openPopup(cardAddPopup);
+  const popup = new Popup('.popup_type_add-place');
+  popup.openPopup();
   formValidators['add-form'].checkButtonState();
 });
 
 // кнопка сохранения новой карточки
+// addForm.addEventListener('submit', (evt) => {
+//   handleCardAddSubmit(evt);
+//   closePopup(cardAddPopup);
+// });
+
 addForm.addEventListener('submit', (evt) => {
   handleCardAddSubmit(evt);
-  closePopup(cardAddPopup);
+  const popup = new Popup('.popup_type_add-place');
+  popup.closePopup();
 });
 
 // ----------------------------------------------------
