@@ -1,5 +1,6 @@
 import {Card, initialCards} from './Card.js';
 import {FormValidator, settings} from './FormValidator.js';
+import {Section} from './Section.js';
 
 
 const editForm = document.querySelector('#save');
@@ -26,8 +27,8 @@ const cardCaption = imagePopup.querySelector('.popup__caption');
 
 const popupList = Array.from(document.querySelectorAll('.popup'));
 
-const cardsBox = document.querySelector('.place-grid__places');
-
+// const cardsBox = document.querySelector('.place-grid__places');
+const cardsBox = '.place-grid__places';
 // ----------------------------------------------
 
 
@@ -86,11 +87,14 @@ function handleProfileEditSubmit(evt) {
 
 // ------ popup_add-place -----------------------------------------------
 
-
-// отрисовка массива карточек
-function renderInitialCards() {
-  initialCards.forEach((item) => addCard(item));
-}
+const cardsGrid = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, '#card', handleCardClick);
+    const cardElement = card.generateCard();
+    cardsGrid.addItem(cardElement);
+  }
+}, cardsBox);
 
 // создание новой карточки
 function getNewCard() {
@@ -101,18 +105,6 @@ function getNewCard() {
   addCard(newCard);
 }
 
-function createCard(item) {
-  const card = new Card(item, '#card', showImage);
-  const cardElement = card.generateCard();
-  return cardElement;
-}
-
-// добавление карточки в DOM
-function addCard(item) {
-  const cardElement = createCard(item);
-  cardsBox.prepend(cardElement);
-}
-
 // сохрание новой карточки
 function handleCardAddSubmit(evt) {
   evt.preventDefault();
@@ -120,14 +112,39 @@ function handleCardAddSubmit(evt) {
   addForm.reset();
 }
 
-function showImage(name, link) {
+// показ попапа с каринкой
+function handleCardClick(name, link) {
   cardImage.src = link;
   cardImage.alt = name;
   cardCaption.textContent = name;
   openPopup(imagePopup);
 }
 
-renderInitialCards();
+cardsGrid.renderItems();
+
+
+// отрисовка массива карточек
+// function renderInitialCards() {
+//   initialCards.forEach((item) => addCard(item));
+// }
+
+
+
+// function createCard(item) {
+//   const card = new Card(item, '#card', showImage);
+//   const cardElement = card.generateCard();
+//   return cardElement;
+// }
+
+// добавление карточки в DOM
+// function addCard(item) {
+//   const cardElement = createCard(item);
+//   cardsBox.prepend(cardElement);
+// }
+
+
+
+// renderInitialCards();
 
 
 

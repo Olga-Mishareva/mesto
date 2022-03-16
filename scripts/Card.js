@@ -27,11 +27,11 @@ const initialCards = [
 
 
 class Card {
-  constructor(data, selector, showImage) {
+  constructor(data, selector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._selector = selector;
-    this._showImage = showImage;
+    this._handleCardClick = handleCardClick;
   }
 
   // создет копию teplate
@@ -69,7 +69,7 @@ class Card {
       this._removeCard(evt);
     });
     this._image.addEventListener('click', () => {
-      this._showImage(this._name, this._link);
+      this._handleCardClick(this._name, this._link);
     });
   }
 
