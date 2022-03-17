@@ -135,11 +135,7 @@ function handleCardAddSubmit(evt) {
 // }
 
 function handleCardClick(name, link) {
-  const popupWihtImage = new PopupWithImage(name, link, '.popup_type_show-image')
-  // cardImage.src = link;
-  // cardImage.alt = name;
-  // cardCaption.textContent = name;
-  //const popup = new Popup('.popup_type_show-image');
+  const popupWihtImage = new PopupWithImage(name, link, '.popup_type_show-image');
   popupWihtImage.openPopup();
 }
 
@@ -211,15 +207,15 @@ addForm.addEventListener('submit', (evt) => {
 // ----------------------------------------------------
 
 // обр. закрытия по Overlay и по крестику
-popupList.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
-    if(evt.target.classList.contains('popup_opened')) {
-      closePopup(popup);
-    }
-    if(evt.target.classList.contains('popup__close-button')) {
-      closePopup(popup);
-    }
-  });
-});
+// popupList.forEach((popup) => {
+//   popup.addEventListener('mousedown', (evt) => {
+//     if(evt.target.classList.contains('popup_opened')) {
+//       closePopup(popup);
+//     }
+//     if(evt.target.classList.contains('popup__close-button')) {
+//       closePopup(popup);
+//     }
+//   });
+// });
 
 
