@@ -1,7 +1,8 @@
 import {Card, initialCards} from './Card.js';
 import {FormValidator, settings} from './FormValidator.js';
-import {Section} from './Section.js';
-import {Popup} from './Popup.js';
+import Section from './Section.js';
+import Popup from './Popup.js';
+import PopupWithImage from './PopupWithImage.js';
 
 
 const editForm = document.querySelector('#save');
@@ -134,11 +135,12 @@ function handleCardAddSubmit(evt) {
 // }
 
 function handleCardClick(name, link) {
-  cardImage.src = link;
-  cardImage.alt = name;
-  cardCaption.textContent = name;
-  const popup = new Popup('.popup_type_show-image');
-  popup.openPopup();
+  const popupWihtImage = new PopupWithImage(name, link, '.popup_type_show-image')
+  // cardImage.src = link;
+  // cardImage.alt = name;
+  // cardCaption.textContent = name;
+  //const popup = new Popup('.popup_type_show-image');
+  popupWihtImage.openPopup();
 }
 
 cardsGrid.renderItems();

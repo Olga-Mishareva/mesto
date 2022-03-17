@@ -1,4 +1,4 @@
-export class Popup {
+export default class Popup {
   constructor(popupSelector) {
     this._popupSelector = popupSelector;
   }
@@ -6,19 +6,22 @@ export class Popup {
   openPopup() {
     this._popup = document.querySelector(this._popupSelector);
     this._popup.classList.add('popup_opened');
-    document.addEventListener('keydown', this._handleEscClose);
+    document.addEventListener('keydown', (evt) => {
+      this._handleEscClose(evt);
+    });
   }
 
   closePopup() {
     this._popup = document.querySelector(this._popupSelector);
     this._popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', this._handleEscClose);
+    document.removeEventListener('keydown', (evt) => {
+      this._handleEscClose(evt);
+    });
   }
 
   _handleEscClose(evt) {
     if(evt.key === 'Escape') {
-      this._popupOpened = document.querySelector('.popup_opened');
-      closePopup(this._popupOpened);
+      this.closePopup();
     }
   }
 
