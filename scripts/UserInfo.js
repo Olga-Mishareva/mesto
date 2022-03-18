@@ -4,6 +4,7 @@ export default class UserInfo {
     this._infoSelector = data.infoSelector;
   }
 
+  // возвращает объект с данными пользователя, подставляются в форму при открытии
   getUserInfo() {
     this._userName = document.querySelector(this._nameSelector);
     this._userInfo = document.querySelector(this._infoSelector);
@@ -11,17 +12,18 @@ export default class UserInfo {
     // console.log(this._userName.textContent)
 
     this._userData = {
-      user: this._userName.textContent,
-      info: this._userInfo.textContent
+      username: this._userName.textContent,
+      about: this._userInfo.textContent
     }
 
     return this._userData;
-
-    // возвращает объект с данными пользователя. подставить в форму при открытии
   }
 
-  setUserInfo() {
-    // this._userName.textContent =
+  // принимает новые данные пользователя и добавляет их на страницу
+  setUserInfo(data) {
+    // console.log(data)
+    this._userName.textContent = data.username;
+    this._userInfo.textContent = data.about;
   }
 
 }
