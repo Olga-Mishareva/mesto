@@ -3,6 +3,8 @@ import {FormValidator, settings} from './FormValidator.js';
 import Section from './Section.js';
 import Popup from './Popup.js';
 import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
+import UserInfo from './UserInfo.js';
 
 
 const editForm = document.querySelector('#save');
@@ -81,14 +83,15 @@ formList.forEach((formElement) => {
 //   inputInfo.value = profileInfo.textContent;
 // }
 
-function handleOpenEditProfilePopup() {
-  const popup = new Popup('.popup_type_edit-profile');
-  popup.openPopup();
-  formValidators['profile-form'].hideIrrelevantErrors();
+// заполнение ред.профиля
+// function handleOpenEditProfilePopup() {
+//   const popup = new Popup('.popup_type_edit-profile');
+//   popup.openPopup();
+//   formValidators['profile-form'].hideIrrelevantErrors();
 
-  inputName.value = profileName.textContent;
-  inputInfo.value = profileInfo.textContent;
-}
+//   inputName.value = profileName.textContent;
+//   inputInfo.value = profileInfo.textContent;
+// }
 
 // сохранение ред.профиля
 function handleProfileEditSubmit(evt) {
@@ -98,6 +101,40 @@ function handleProfileEditSubmit(evt) {
   profileInfo.textContent = inputInfo.value;
 }
 
+const profileData = {
+  nameSelector: '.profile__name',
+  infoSelector: '.profile__info'
+}
+
+
+// кнопка открытия ред.профиля
+editBtn.addEventListener('click', function () {
+  const userData = new UserInfo({ data: profileData });
+
+  const editPopup = new PopupWithForm({
+    handleSubmit: () => {
+      evt.preventDefault();
+      userData.setUserInfo();
+    } }, '.popup_type_edit-profile');
+
+
+  // console.log(userData.getUserInfo().user)
+  // console.log(userData.getUserInfo()[info])
+
+  editPopup.openPopup();
+
+  inputName.value = userData.getUserInfo().user;
+  inputInfo.value = userData.getUserInfo().info;
+
+  formValidators['profile-form'].checkButtonState();
+});
+
+// кнопка сохранения профиля
+editForm.addEventListener('submit', function (evt) {
+  handleProfileEditSubmit(evt);
+
+  popup.closePopup();
+});
 // ------ popup_add-place -----------------------------------------------
 
 // NEW !!!
@@ -125,6 +162,26 @@ function handleCardAddSubmit(evt) {
   getNewCard();
   addForm.reset();
 }
+
+// кнопка добавить карточку
+addBtn.addEventListener('click', () => {
+  const popup = new Popup('.popup_type_add-place');
+  popup.openPopup();
+  formValidators['add-form'].checkButtonState();
+});
+
+// кнопка сохранения новой карточки
+// addForm.addEventListener('submit', (evt) => {
+//   handleCardAddSubmit(evt);
+//   closePopup(cardAddPopup);
+// });
+
+// кнопка сохранения новой карточки
+addForm.addEventListener('submit', (evt) => {
+  handleCardAddSubmit(evt);
+  const popup = new Popup('.popup_type_add-place');
+  popup.closePopup();
+});
 
 // показ попапа с каринкой
 // function handleCardClick(name, link) {
@@ -170,39 +227,11 @@ cardsGrid.renderItems();
 // ---- POPUP LISTENER ----
 
 
-// кнопка открытия ред.профиля
-editBtn.addEventListener('click', function () {
-  handleOpenEditProfilePopup(profileEditPopup);
-  formValidators['profile-form'].checkButtonState();
-});
 
-// кнопка сохранения профиля
-editForm.addEventListener('submit', function (evt) {
-  handleProfileEditSubmit(evt);
-  const popup = new Popup('.popup_type_edit-profile');
-  popup.closePopup();
-});
 
 // ----------------------------------------------------
 
-// кнопка добавить карточку
-addBtn.addEventListener('click', () => {
-  const popup = new Popup('.popup_type_add-place');
-  popup.openPopup();
-  formValidators['add-form'].checkButtonState();
-});
 
-// кнопка сохранения новой карточки
-// addForm.addEventListener('submit', (evt) => {
-//   handleCardAddSubmit(evt);
-//   closePopup(cardAddPopup);
-// });
-
-addForm.addEventListener('submit', (evt) => {
-  handleCardAddSubmit(evt);
-  const popup = new Popup('.popup_type_add-place');
-  popup.closePopup();
-});
 
 // ----------------------------------------------------
 
