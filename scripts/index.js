@@ -101,14 +101,9 @@ const addPopup = new PopupWithForm({
     data.link = elem[inputLink.name];
     console.log(data)
 
-    const newPlace = new Section({
-      items: [],
-      renderer: () => {
-        const newCard = new Card(data, '#card', handleCardClick);
-        const newCardElement = newCard.generateCard();
-        cardsGrid.addItem(newCardElement);  // пока не понятно, как и куда вставлять
-      }
-    }, '.place-grid__places');
+    const newCard = new Card(data, '#card', handleCardClick);
+    const newCardElement = newCard.generateCard();
+    cardsGrid.addItem(newCardElement);
 
   }
 },'.popup_type_add-place');
