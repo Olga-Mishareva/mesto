@@ -4,18 +4,19 @@ export default class PopupWithForm extends Popup {
   constructor({ handleSubmit }, popupSelector) {
     super(popupSelector);
     this._handleSubmit = handleSubmit;
-
+    this._popupForm = document.querySelector(popupSelector).querySelector('.popup__form');
   }
 
   // собирает данные с полей input
   _getInputValues() {
     this._inputData = {};
-    this._popupForm = this._popup.querySelector('.popup__form');
+    // this._popupForm = this._popup.querySelector('.popup__form');
     this._inputList = Array.from(this._popupForm.querySelectorAll('.popup__input'));
     this._inputList.forEach(input => {
       this._inputName = input.getAttribute('name');
       this._inputData[this._inputName] = input.value;
     });
+
     // console.log(this._inputData)
     return this._inputData;
   }
@@ -23,11 +24,12 @@ export default class PopupWithForm extends Popup {
   _setEventListeners() {
     super._setEventListeners();
 
-    this._popup.querySelector('.popup__form').addEventListener('submit', (evt) => {
+    this._popupForm.addEventListener('submit', (evt) => {
       evt.preventDefault();
       // console.log(this._getInputValues())
       this._handleSubmit(this._getInputValues());
       this.closePopup();
+
     });
 
   }
@@ -35,7 +37,8 @@ export default class PopupWithForm extends Popup {
   closePopup() {
     super.closePopup();
 
-    // форма должна еще сбрасываться
+     // не получается использовать this._popupForm ???
+     this._popupForm.reset();
   }
 
 

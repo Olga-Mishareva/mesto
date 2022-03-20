@@ -48,25 +48,30 @@ formList.forEach((formElement) => {
 
 // ------ popup_edit-profile -----------------------------------------------
 
-
 const profileData = {
   nameSelector: '.profile__name',
   infoSelector: '.profile__info'
 }
 
+const userData = new UserInfo({ data: profileData });
+
+const editPopup = new PopupWithForm({
+
+  handleSubmit: (data) => {
+
+    console.log(data)
+    userData.setUserInfo(data);
+  }
+}, '.popup_type_edit-profile');
+
+
 // кнопка открытия ред.профиля
 editBtn.addEventListener('click', function () {
-  const userData = new UserInfo({ data: profileData });
-  inputName.value = userData.getUserInfo().username;
-  inputInfo.value = userData.getUserInfo().about;
-
-  const editPopup = new PopupWithForm({
-    handleSubmit: (data) => {
-      userData.setUserInfo(data);
-
-    } }, '.popup_type_edit-profile');
 
   editPopup.openPopup();
+  //сделать циклом по инпутам
+  inputName.value = userData.getUserInfo().username;
+  inputInfo.value = userData.getUserInfo().about;
 
   formValidators['profile-form'].hideIrrelevantErrors();
   formValidators['profile-form'].checkButtonState();
@@ -76,7 +81,7 @@ editBtn.addEventListener('click', function () {
 // ------ popup_add-place -----------------------------------------------
 
 
-// NEW !!!
+// отрисовка начального массива карточек
 const cardsGrid = new Section({
   items: initialCards,
   renderer: (item) => {
@@ -84,54 +89,74 @@ const cardsGrid = new Section({
     const cardElement = card.generateCard();
     cardsGrid.addItem(cardElement);
   }
-}, cardsBox);
+}, '.place-grid__places');
+
+
+
+// создание новой карточки
+const addPopup = new PopupWithForm({
+  handleSubmit: (elem) => {
+    const data = {};
+    data.name = elem[inputCard.name];
+    data.link = elem[inputLink.name];
+    console.log(data)
+
+    const newPlace = new Section({
+      items: [],
+      renderer: () => {
+        const newCard = new Card(data, '#card', handleCardClick);
+        const newCardElement = newCard.generateCard();
+        cardsGrid.addItem(newCardElement);  // пока не понятно, как и куда вставлять
+      }
+    }, '.place-grid__places');
+
+  }
+},'.popup_type_add-place');
+
+cardsGrid.renderItems();
 
 
 // кнопка добавить карточку
 addBtn.addEventListener('click', () => {
-  const popup = new Popup('.popup_type_add-place');
-  popup.openPopup();
+
+  addPopup.openPopup();
   formValidators['add-form'].checkButtonState();
 });
 
 
-// создание новой карточки
-function getNewCard() {
-  const newCard = {
-    name: inputCard.value,
-    link: inputLink.value,
-  };
-  addCard(newCard);
-}
-
-// сохрание новой карточки
-function handleCardAddSubmit(evt) {
-  evt.preventDefault();
-  getNewCard();
-  addForm.reset();
-}
-
-
-
-// кнопка сохранения новой карточки
-addForm.addEventListener('submit', (evt) => {
-  handleCardAddSubmit(evt);
-  const popup = new Popup('.popup_type_add-place');
-  popup.closePopup();
-});
-
-// --------------------------------------
-
-
-// NEW
+// показ картинки
 function handleCardClick(name, link) {
   const popupWihtImage = new PopupWithImage(name, link, '.popup_type_show-image');
   popupWihtImage.openPopup();
 }
 
-cardsGrid.renderItems();
+
+// // создание новой карточки
+// function getNewCard() {
+//   const newCard = {
+//     name: inputCard.value,
+//     link: inputLink.value,
+//   };
+//   addCard(newCard);
+// }
+
+// // сохрание новой карточки
+// function handleCardAddSubmit(evt) {
+//   evt.preventDefault();
+//   getNewCard();
+//   addForm.reset();
+// }
 
 
+
+// // кнопка сохранения новой карточки
+// addForm.addEventListener('submit', (evt) => {
+//   handleCardAddSubmit(evt);
+//   const popup = new Popup('.popup_type_add-place');
+//   popup.closePopup();
+// });
+
+// --------------------------------------
 
 
 // ------- HANDLE POPUP -------
@@ -157,7 +182,6 @@ cardsGrid.renderItems();
 //     closePopup(popupOpened);
 //   }
 // }
-
 
 
 // заполнение ред.профиля
