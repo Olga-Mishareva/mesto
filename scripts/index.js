@@ -1,42 +1,42 @@
-import {Card, initialCards} from './Card.js';
-import {FormValidator, settings} from './FormValidator.js';
-import Section from './Section.js';
-import Popup from './Popup.js';
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
+import {FormValidator, settings} from './components/FormValidator.js';
+import Card from './components/Card.js';
+import Section from './components/Section.js';
+import Popup from './components/Popup.js';
+import PopupWithImage from './components/PopupWithImage.js';
+import PopupWithForm from './components/PopupWithForm.js';
+import UserInfo from './components/UserInfo.js';
+import { initialCards,
+  profileData,
+  formValidators,
+  editBtn,
+  inputName,
+  inputInfo,
+  addBtn,
+  inputCard,
+  inputLink
+} from './utils/constants.js';
 
 
-const editForm = document.querySelector('#save');
-const profileName = document.querySelector('.profile__name');
-const profileInfo = document.querySelector('.profile__info');
-const editBtn = document.querySelector('.profile__edit-button');
-const profileEditPopup = document.querySelector('.popup_type_edit-profile');
-const inputName = profileEditPopup.querySelector('.popup__input_type_name');
-const inputInfo = profileEditPopup.querySelector('.popup__input_type_info');
+// const editBtn = document.querySelector('.profile__edit-button');
+// const inputName = document.querySelector('.popup__input_type_name');
+// const inputInfo = document.querySelector('.popup__input_type_info');
 
-// --------------------------------------------------------------
+// // --------------------------------------------------------------
 
-const addForm = document.querySelector('#add');
-const addBtn = document.querySelector('.profile__add-button');
-const cardAddPopup = document.querySelector('.popup_type_add-place');
-const inputCard = cardAddPopup.querySelector('.popup__input_type_place');
-const inputLink = cardAddPopup.querySelector('.popup__input_type_link');
+// const addBtn = document.querySelector('.profile__add-button');
+// const inputCard = document.querySelector('.popup__input_type_place');
+// const inputLink = document.querySelector('.popup__input_type_link');
 
-// ----------------------------------------------------------------
+// // ----------------------------------------------------------------
 
-const imagePopup = document.querySelector('.popup_type_show-image');
-const cardImage = imagePopup.querySelector('.popup__image');
-const cardCaption = imagePopup.querySelector('.popup__caption');
+// const profileData = {
+//   nameSelector: '.profile__name',
+//   infoSelector: '.profile__info'
+// }
 
-const popupList = Array.from(document.querySelectorAll('.popup'));
-
-// const cardsBox = document.querySelector('.place-grid__places');
-const cardsBox = '.place-grid__places';
-// ----------------------------------------------
+// const formValidators = {};
 
 
-const formValidators = {};
 
 const formList = Array.from(document.querySelectorAll('.popup__form'));
 formList.forEach((formElement) => {
@@ -48,10 +48,7 @@ formList.forEach((formElement) => {
 
 // ------ popup_edit-profile -----------------------------------------------
 
-const profileData = {
-  nameSelector: '.profile__name',
-  infoSelector: '.profile__info'
-}
+
 
 const userData = new UserInfo({ data: profileData });
 
@@ -90,7 +87,6 @@ const cardsGrid = new Section({
     cardsGrid.addItem(cardElement);
   }
 }, '.place-grid__places');
-
 
 
 // создание новой карточки
@@ -214,16 +210,6 @@ function handleCardClick(name, link) {
 // });
 
 
-
-
-
-
-
-
-
-
-
-
 // кнопка сохранения новой карточки
 // addForm.addEventListener('submit', (evt) => {
 //   handleCardAddSubmit(evt);
@@ -270,14 +256,6 @@ function handleCardClick(name, link) {
 
 // ---- POPUP LISTENER ----
 
-
-
-
-// ----------------------------------------------------
-
-
-
-// ----------------------------------------------------
 
 // обр. закрытия по Overlay и по крестику
 // popupList.forEach((popup) => {
