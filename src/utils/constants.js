@@ -25,6 +25,33 @@ export const initialCards = [
   },
 ];
 
+// export const initialCards = [
+//   {
+//     name: 'Гора Ахун',
+//     link: goraAchun,
+//   },
+//   {
+//     name: 'Камчатка',
+//     link: kamchatka,
+//   },
+//   {
+//     name: 'Конжаковский Камень',
+//     link: kKamen,
+//   },
+//   {
+//     name: 'Камчатка',
+//     link: kam_ka,
+//   },
+//   {
+//     name: 'Ольхон',
+//     link: olchon,
+//   },
+//   {
+//     name: 'Юрюзань',
+//     link: urusan,
+//   },
+// ];
+
 export const profileData = {
   nameSelector: '.profile__name',
   infoSelector: '.profile__info'

@@ -1,3 +1,13 @@
+import './pages/index.css';
+
+// const goraAchun = new URL('./images/ana-kai-QXOl2IXJ_ow-unsplash.jpg', import.meta.url);
+// const kamchatka = new URL('./images/daniil-silantev-fD7cXIFurSQ-unsplash.jpg', import.meta.url);
+// const kKamen = new URL('./images/daniil-silantev-hGQWGwtnbVw-unsplash.jpg', import.meta.url);
+// const kam_ka = new URL('./images/daniil-silantev-h-M3O25tyvI-unsplash.jpg', import.meta.url);
+// const olchon = new URL('./images/kir-simakov-OGc_X8PeikQ-unsplash.jpg', import.meta.url);
+// const urusan = new URL('./images/daniil-silantev-2avwToAG91M-unsplash.jpg', import.meta.url);
+
+
 import FormValidator from './components/FormValidator.js';
 import Card from './components/Card.js';
 import Section from './components/Section.js';
@@ -15,6 +25,8 @@ import { initialCards,
   inputCard,
   inputLink
 } from './utils/constants.js';
+
+import './pages/index.css';
 
 // --------------------------------------------------------------------------
 
