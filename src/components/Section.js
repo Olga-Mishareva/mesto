@@ -5,13 +5,15 @@ export default class Section {
     this._container = document.querySelector(containerSelector);
   }
 
+  // применяет функцию, прописанную при создании класса к каждому элементу
+  // (создание карточки и вставка в DOM)
   renderItems() {
-    // console.log(this._items)
     this._items.forEach(item => {
       this._renderer(item);
     })
   }
 
+  // вставка в DOM
   addItem(elem) {
     this._container.prepend(elem);
   }

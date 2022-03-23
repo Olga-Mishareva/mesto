@@ -1,12 +1,11 @@
 export default class Popup {
   constructor(popupSelector) {
     this._popupSelector = popupSelector;
+    this._popup = document.querySelector(this._popupSelector);
   }
 
   openPopup() {
-    this._popup = document.querySelector(this._popupSelector);
     this._popup.classList.add('popup_opened');
-    this._setEventListeners();
     document.addEventListener('keydown', (evt) => {
       this._handleEscClose(evt);
     });
@@ -20,13 +19,15 @@ export default class Popup {
     });
   }
 
+  // закрытие с Esc
   _handleEscClose(evt) {
     if(evt.key === 'Escape') {
       this.closePopup();
     }
   }
 
-  _setEventListeners() {
+  // обр. закрытия по Overlay и по крестику
+  setEventListeners() {
     this._popup.addEventListener('mousedown', (evt) => {
       if(evt.target.classList.contains('popup_opened')) {
         this.closePopup();
@@ -36,5 +37,4 @@ export default class Popup {
       }
     });
   }
-
 }
