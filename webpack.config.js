@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { default: postcss } = require('postcss');
 
 module.exports = {
-  entry: { main: './src/index.js' },
+  entry: { main: './src/pages/index.js' },
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'main.js',
@@ -32,11 +32,14 @@ module.exports = {
     },
     {
       test: /\.css$/,
-      use: [MiniCssExtractPlugin.loader, {
-        loader: 'css-loader',
-        options: { importLoaders: 1 }
-      },
-      'postcss-loader']
+      use: [
+        MiniCssExtractPlugin.loader, 
+        {
+          loader: 'css-loader',
+          options: { importLoaders: 1 }
+        },
+        'postcss-loader'
+      ]
     }
     ]
   },
