@@ -35,21 +35,22 @@ formList.forEach((formElement) => {
 // создает класс вставки в DOM
 const userData = new UserInfo({ data: profileData });
 
-const editPopup = new PopupWithForm({
+const profilePopup = new PopupWithForm({
   handleSubmit: (data) => {
     userData.setUserInfo(data);
   }
 }, '.popup_type_edit-profile');
 
-editPopup.setEventListeners();
+profilePopup.setEventListeners();
 
 
 // кнопка открытия ред.профиля
 editBtn.addEventListener('click', function () {
-  editPopup.openPopup();
 
   inputName.value = userData.getUserInfo().username;
   inputInfo.value = userData.getUserInfo().about;
+
+  profilePopup.openPopup();
 
   formValidators['profile-form'].resetValidation();
 });
@@ -69,7 +70,7 @@ const cardsGrid = new Section({
 }, '.place-grid__places');
 
 // создание новой карточки
-const addPopup = new PopupWithForm({
+const placePopup = new PopupWithForm({
   handleSubmit: (elem) => {
     const data = {};
     data.name = elem[inputCard.name];
@@ -81,23 +82,25 @@ const addPopup = new PopupWithForm({
   }
 },'.popup_type_add-place');
 
-addPopup.setEventListeners();
+placePopup.setEventListeners();
 
 cardsGrid.renderItems();
 
 
 // кнопка добавить карточку
 addBtn.addEventListener('click', () => {
-  addPopup.openPopup();
+  placePopup.openPopup();
   formValidators['add-form'].resetValidation();
 });
 
 // ------ popup_show-image -----------------------------------------------
 
+const popupWihtImage = new PopupWithImage('.popup_type_show-image');
+
+
 // показ картинки
 function handleCardClick(name, link) {
-  const popupWihtImage = new PopupWithImage(name, link, '.popup_type_show-image');
-  popupWihtImage.openPopup();
+  popupWihtImage.openPopup(name, link);
   popupWihtImage.setEventListeners();
 }
 
