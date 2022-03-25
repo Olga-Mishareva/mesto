@@ -18,6 +18,7 @@ import { initialCards,
   inputLink
 } from '../utils/constants.js';
 
+
 // --------------------------------------------------------------------------
 
 const formList = Array.from(document.querySelectorAll('.popup__form'));
