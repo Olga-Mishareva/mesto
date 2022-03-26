@@ -104,9 +104,9 @@ placeBtn.addEventListener("click", () => {
 // ------ popup_show-image -----------------------------------------------
 
 const popupWihtImage = new PopupWithImage(".popup_type_show-image");
+popupWihtImage.setEventListeners();
 
 // показ картинки
 function handleCardClick(name, link) {
   popupWihtImage.openPopup(name, link);
-  popupWihtImage.setEventListeners();
 }

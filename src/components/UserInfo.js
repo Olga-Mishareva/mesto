@@ -1,9 +1,7 @@
 export default class UserInfo {
   constructor({ data }) {
-    this._nameSelector = data.nameSelector;
-    this._infoSelector = data.infoSelector;
-    this._userName = document.querySelector(this._nameSelector);
-    this._userInfo = document.querySelector(this._infoSelector);
+    this._userName = document.querySelector(data.nameSelector);
+    this._userInfo = document.querySelector(data.infoSelector);
   }
 
   // собирает данные пользователя со станицы возвращает объект,
