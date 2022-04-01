@@ -1,5 +1,6 @@
 import "./index.css";
 
+import Api from '../components/Api.js';
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
@@ -58,7 +59,7 @@ profileBtn.addEventListener("click", function () {
 
 // ------ popup_add-place -----------------------------------------------
 
-// созжание катрочки
+// создание катрочки
 function createCard(item) {
   const card = new Card(item, "#card", handleCardClick);
   const cardElement = card.generateCard();
@@ -110,3 +111,22 @@ popupWihtImage.setEventListeners();
 function handleCardClick(name, link) {
   popupWihtImage.openPopup(name, link);
 }
+
+// --------------------------------------------------------------------------
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
+  headers: {
+    autorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9',
+    'Content-Type': 'application/json'
+  }
+});
+
+// api.getLog()
+
+api.getUserData()
+.then(data => {
+  console.log(data)
+})
+
+
