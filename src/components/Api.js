@@ -7,8 +7,7 @@ export default class Api {
   getUserData() {
     return fetch(`${this._options.baseUrl}/users/me`, {
       headers: {
-        authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9',
-        'Content-Type': 'application/json'
+        authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9'
       }
     })
     .then(res => {
@@ -17,19 +16,34 @@ export default class Api {
       }
       return Promise.reject(`Ошибка: ${res.status}`);
     })
-    // .then(data => {
-    //   console.log(data);
-    // })
-    .catch(err => {
-      console.log(err);
-    })
+    .catch(err => console.log(err));
   }
+
+  editUserData({ data }) {
+    return fetch(`${this._options.baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: {
+        authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: data.username,
+        about: data.about
+      })
+    })
+    .then(res => {
+      return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch(err => console.log(err));
+  }
+
+
+
 
   getInitialCards() {
     return fetch('https://mesto.nomoreparties.co/v1/cohort-39/cards', {
       headers: {
-        authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9',
-        'Content-Type': 'application/json'
+        authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9'
       }
     })
     .then(res => {
@@ -38,12 +52,7 @@ export default class Api {
       }
       return Promise.reject(`Ошибка: ${res.status}`);
     })
-    // .then(cards => {
-    //   console.log(cards);
-    // })
-    .catch(err => {
-      console.log(err);
-    })
+    .catch(err => console.log(err))
   }
 
 

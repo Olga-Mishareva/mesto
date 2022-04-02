@@ -16,9 +16,10 @@ export default class UserInfo {
   }
 
   // принимает новые данные пользователя и добавляет их на страницу
-  setUserInfo(data) {
-    this._userName.textContent = data.username;
-    this._userInfo.textContent = data.about;
+  setUserInfo(name, about) {
+    // console.log(name, about)
+    this._userName.textContent = name;
+    this._userInfo.textContent = about;
   }
 
 }

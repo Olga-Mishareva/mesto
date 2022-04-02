@@ -22,6 +22,18 @@ import {
 
 // --------------------------------------------------------------------------
 
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
+  headers: {
+    autorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9',
+    'Content-Type': 'application/json'
+  }
+});
+
+// --------------------------------------------------------------------------
+
+// создает объект класса валидации для всех форм
 const formList = Array.from(document.querySelectorAll(".popup__form"));
 formList.forEach((formElement) => {
   const validator = new FormValidator(settings, formElement);
@@ -30,15 +42,27 @@ formList.forEach((formElement) => {
   validator.enableValidation();
 });
 
+
 // ------ popup_edit-profile -----------------------------------------------
 
 // создает класс вставки в DOM
 const userData = new UserInfo({ data: profileData });
 
+// подставляет данные с сервера при перезагрузке страницы
+api.getUserData()
+.then(res => {
+  console.log(res)
+  userData.setUserInfo(res.name, res.about)
+})
+
+
 const profilePopup = new PopupWithForm(
   {
     handleSubmit: (data) => {
-      userData.setUserInfo(data);
+      api.editUserData({ data })
+      .then(res => {
+        userData.setUserInfo(res.name, res.about);
+      })
     },
   },
   ".popup_type_edit-profile"
@@ -53,7 +77,6 @@ profileBtn.addEventListener("click", function () {
   inputInfo.value = userIntel.about;
 
   profilePopup.openPopup();
-
   formValidators["profile-form"].resetValidation();
 });
 
@@ -114,19 +137,10 @@ function handleCardClick(name, link) {
 
 // --------------------------------------------------------------------------
 
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
-  headers: {
-    autorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9',
-    'Content-Type': 'application/json'
-  }
-});
+
 
 // api.getLog()
 
-api.getUserData()
-.then(data => {
-  console.log(data)
-})
+
 
 
