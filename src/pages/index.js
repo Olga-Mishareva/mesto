@@ -55,14 +55,16 @@ api.getUserData()
   userData.setUserInfo(res.name, res.about)
 })
 
-
+// создание попапа редактирования профиля, передает функцию сабмита
 const profilePopup = new PopupWithForm(
   {
     handleSubmit: (data) => {
+      profilePopup.renderLoading(true)
       api.editUserData({ data })
       .then(res => {
         userData.setUserInfo(res.name, res.about);
       })
+      .finally(() => profilePopup.renderLoading(false));
     },
   },
   ".popup_type_edit-profile"
