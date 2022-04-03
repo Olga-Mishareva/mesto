@@ -8,7 +8,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import {
-  initialCards,
+  // initialCards,
   profileData,
   settings,
   formValidators,
@@ -51,7 +51,7 @@ const userData = new UserInfo({ data: profileData });
 // подставляет данные с сервера при перезагрузке страницы
 api.getUserData()
 .then(res => {
-  console.log(res)
+  // console.log(res)
   userData.setUserInfo(res.name, res.about)
 })
 
@@ -84,6 +84,17 @@ profileBtn.addEventListener("click", function () {
 
 // ------ popup_add-place -----------------------------------------------
 
+
+// создание класса для отрисовки катрочек и добавления в DOM
+const cardsGrid = new Section(
+  {
+    renderer: (item) => {
+      cardsGrid.addItem(createCard(item));
+    },
+  },
+  ".place-grid__places"
+);
+
 // создание катрочки
 function createCard(item) {
   const card = new Card(item, "#card", handleCardClick);
@@ -92,16 +103,20 @@ function createCard(item) {
   return cardElement;
 }
 
-// отрисовка начального массива карточек
-const cardsGrid = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      cardsGrid.addItem(createCard(item));
-    },
-  },
-  ".place-grid__places"
-);
+// отрисовка массива рандомных 30 карточек
+api.getInitialCards()
+.then(cards => {
+  const usersCards = [];
+  cards.forEach(elem => {
+    const card = {};
+    card.name = elem.name;
+    card.link = elem.link;
+    usersCards.push(card);
+  })
+
+  cardsGrid.renderItems(usersCards);
+})
+
 
 // сохранеие и вставка новой карточки
 const placePopup = new PopupWithForm(
@@ -119,7 +134,7 @@ const placePopup = new PopupWithForm(
 
 placePopup.setEventListeners();
 
-cardsGrid.renderItems();
+// cardsGrid.renderItems();
 
 // кнопка добавить карточку
 placeBtn.addEventListener("click", () => {

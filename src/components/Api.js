@@ -38,8 +38,6 @@ export default class Api {
   }
 
 
-
-
   getInitialCards() {
     return fetch('https://mesto.nomoreparties.co/v1/cohort-39/cards', {
       headers: {
