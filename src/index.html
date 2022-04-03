@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
   <title>Mesto</title>
 </head>
 
@@ -71,6 +70,19 @@
       </div>
     </div>
 
+    <div class="popup popup_type_edit-avatar">
+      <div class="popup__container popup__container_type_edit-avatar">
+        <button class="popup__close-button" type="button"></button>
+        <form class="popup__form" novalidate name="avatar-form" action="#" method="post" id="avatar">
+          <h2 class="popup__title">Обновить аватар</h2>
+          <input class="popup__input popup__input_type_link" type="url" required name="ava"
+            placeholder="Ссылка на картинку">
+          <span class="popup__error popup__error_type_ava"></span>
+          <button class="popup__submit-button" type="submit" form="avatar">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
     <div class="popup popup_type_add-place">
       <div class="popup__container">
         <button class="popup__close-button" type="button"></button>
@@ -87,6 +99,16 @@
       </div>
     </div>
 
+    <div class="popup popup_type_delete-place">
+      <div class="popup__container popup__container_type_delete-place">
+        <button class="popup__close-button" type="button"></button>
+        <form class="popup__form" novalidate name="delete-form" action="#" method="post" id="delete">
+          <h2 class="popup__title popup__title_type_delete-place">Вы уверены?</h2>
+          <button class="popup__submit-button" type="submit" form="delete">Да</button>
+        </form>
+      </div>
+    </div>
+
     <div class="popup popup_type_show-image">
       <div class="popup__illustration">
         <button class="popup__close-button popup__close-button_type_show" type="button"></button>
@@ -95,9 +117,10 @@
       </div>
     </div>
 
+
+
   </div>
 
-  <!-- <script type="module" src="./scripts/index.js"></script> -->
 </body>
 
 </html>

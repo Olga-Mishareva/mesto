@@ -36,6 +36,7 @@ const api = new Api({
 // создает объект класса валидации для всех форм
 const formList = Array.from(document.querySelectorAll(".popup__form"));
 formList.forEach((formElement) => {
+  console.log(formElement)
   const validator = new FormValidator(settings, formElement);
   const formName = formElement.getAttribute("name");
   formValidators[formName] = validator;
