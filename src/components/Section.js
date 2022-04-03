@@ -8,7 +8,6 @@ export default class Section {
   // применяет функцию, прописанную при создании класса к каждому элементу
   // (создание карточки и вставка в DOM)
   renderItems(items) {
-    console.log(items)
     items.forEach(item => {
       this._renderer(item);
     })

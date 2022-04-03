@@ -11,10 +11,7 @@ export default class Api {
       }
     })
     .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
     })
     .catch(err => console.log(err));
   }
@@ -38,8 +35,8 @@ export default class Api {
   }
 
 
-  getInitialCards() {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-39/cards', {
+  getUsersCards() {
+    return fetch(`${this._options.baseUrl}/cards`, {
       headers: {
         authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9'
       }
@@ -50,15 +47,27 @@ export default class Api {
       }
       return Promise.reject(`Ошибка: ${res.status}`);
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
+  }
+
+  addNewCard({ elem }) {
+    console.log(elem)
+    return fetch(`${this._options.baseUrl}/cards`, {
+      method: 'POST',
+      headers: {
+        authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: elem.place,
+        link: elem.img
+      })
+    })
+    .then(res => {
+      return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch(err => console.log(err));
   }
 
 
-
-
-
-
-  getLog() {
-    console.log(this._options.headers)
-  }
 }

@@ -104,7 +104,7 @@ function createCard(item) {
 }
 
 // отрисовка массива рандомных 30 карточек
-api.getInitialCards()
+api.getUsersCards()
 .then(cards => {
   const usersCards = [];
   cards.forEach(elem => {
@@ -112,29 +112,32 @@ api.getInitialCards()
     card.name = elem.name;
     card.link = elem.link;
     usersCards.push(card);
-  })
+  });
 
   cardsGrid.renderItems(usersCards);
-})
+});
 
 
 // сохранеие и вставка новой карточки
 const placePopup = new PopupWithForm(
   {
     handleSubmit: (elem) => {
-      const data = {};
-      data.name = elem[inputCard.name];
-      data.link = elem[inputLink.name];
+      placePopup.renderLoading(true)
+      api.addNewCard({ elem })
+      .then(res => {
+        const cardData = {};
+        cardData.name = res.name;
+        cardData.link = res.link;
 
-      cardsGrid.addItem(createCard(data));
+        cardsGrid.addItem(createCard(cardData));
+      })
+      .finally(() => placePopup.renderLoading(false));
     },
   },
   ".popup_type_add-place"
 );
 
 placePopup.setEventListeners();
-
-// cardsGrid.renderItems();
 
 // кнопка добавить карточку
 placeBtn.addEventListener("click", () => {
@@ -156,7 +159,6 @@ function handleCardClick(name, link) {
 
 
 
-// api.getLog()
 
 
 
