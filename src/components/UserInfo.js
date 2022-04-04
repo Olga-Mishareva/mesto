@@ -2,6 +2,7 @@ export default class UserInfo {
   constructor({ data }) {
     this._userName = document.querySelector(data.nameSelector);
     this._userInfo = document.querySelector(data.infoSelector);
+    this._userAvatar = document.querySelector(data.avatarSelector);
   }
 
   // собирает данные пользователя со станицы возвращает объект,
@@ -20,6 +21,10 @@ export default class UserInfo {
     // console.log(name, about)
     this._userName.textContent = name;
     this._userInfo.textContent = about;
+  }
+
+  setUserAvatar(link) {
+    this._userAvatar.style.backgroundImage = `url(${link})`;
   }
 
 }

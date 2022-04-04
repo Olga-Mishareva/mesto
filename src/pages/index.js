@@ -13,11 +13,12 @@ import {
   settings,
   formValidators,
   profileBtn,
+  avatarEditBtn,
   inputName,
   inputInfo,
   placeBtn,
-  inputCard,
-  inputLink,
+  // inputCard,
+  // inputLink,
 } from "../utils/constants.js";
 
 // --------------------------------------------------------------------------
@@ -36,7 +37,6 @@ const api = new Api({
 // создает объект класса валидации для всех форм
 const formList = Array.from(document.querySelectorAll(".popup__form"));
 formList.forEach((formElement) => {
-  console.log(formElement)
   const validator = new FormValidator(settings, formElement);
   const formName = formElement.getAttribute("name");
   formValidators[formName] = validator;
@@ -52,9 +52,11 @@ const userData = new UserInfo({ data: profileData });
 // подставляет данные с сервера при перезагрузке страницы
 api.getUserData()
 .then(res => {
-  // console.log(res)
-  userData.setUserInfo(res.name, res.about)
-})
+  userData.setUserInfo(res.name, res.about);
+  userData.setUserAvatar(res.avatar);
+});
+
+
 
 // создание попапа редактирования профиля, передает функцию сабмита
 const profilePopup = new PopupWithForm(
@@ -82,6 +84,27 @@ profileBtn.addEventListener("click", function () {
   profilePopup.openPopup();
   formValidators["profile-form"].resetValidation();
 });
+
+const avatarPopup = new PopupWithForm(
+  {
+    handleSubmit: (data) => {
+      avatarPopup.renderLoading(true);
+      api.editUserAvatar(data)
+      .then(res => {
+        userData.setUserAvatar(res.avatar);
+      })
+      .finally(() => avatarPopup.renderLoading(false));
+    }
+  },
+  '.popup_type_edit-avatar'
+);
+
+avatarPopup.setEventListeners();
+
+avatarEditBtn.addEventListener('click', function() {
+  avatarPopup.openPopup();
+  formValidators["avatar-form"].resetValidation();
+})
 
 // ------ popup_add-place -----------------------------------------------
 

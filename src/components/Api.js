@@ -34,7 +34,7 @@ export default class Api {
     .catch(err => console.log(err));
   }
 
-  editUserAvatar() {
+  editUserAvatar(data) {
     return fetch(`${this._options.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
@@ -42,7 +42,7 @@ export default class Api {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        avatar: ''
+        avatar: data.avatar
       })
     })
     .then(res => {
@@ -51,6 +51,7 @@ export default class Api {
     .catch(err => console.log(err));
   }
 
+  // ========================================================
 
   getUsersCards() {
     return fetch(`${this._options.baseUrl}/cards`, {

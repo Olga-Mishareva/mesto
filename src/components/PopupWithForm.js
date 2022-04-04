@@ -9,6 +9,7 @@ export default class PopupWithForm extends Popup {
     this._btnText = this._submitBtn.textContent;
   }
 
+
   // собирает данные с полей input в объект
   _getInputValues() {
     this._inputData = {};
@@ -38,6 +39,7 @@ export default class PopupWithForm extends Popup {
     this._popupForm.reset();
   }
 
+  // показывает процесс загрузки
   renderLoading(loading) {
     if(loading) {
       this._submitBtn.textContent = 'Сохранение...';

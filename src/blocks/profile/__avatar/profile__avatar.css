@@ -3,7 +3,7 @@
   height: 120px;
   border-radius: 50%;
   position: relative;
-  background-image: url(../../../images/thomas-reaubourg-uDA0XFT41-g-unsplash.jpg);
+  /* background-image: url(../../../images/thomas-reaubourg-uDA0XFT41-g-unsplash.jpg); */
   background-size: cover;
   z-index: 0;
   display: flex;
