@@ -34,6 +34,23 @@ export default class Api {
     .catch(err => console.log(err));
   }
 
+  editUserAvatar() {
+    return fetch(`${this._options.baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar: ''
+      })
+    })
+    .then(res => {
+      return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch(err => console.log(err));
+  }
+
 
   getUsersCards() {
     return fetch(`${this._options.baseUrl}/cards`, {
@@ -68,6 +85,7 @@ export default class Api {
     })
     .catch(err => console.log(err));
   }
+
 
 
 }

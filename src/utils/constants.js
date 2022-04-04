@@ -56,6 +56,7 @@ export const formValidators = {};
 export const profileBtn = document.querySelector('.profile__edit-button');
 export const inputName = document.querySelector('.popup__input_type_name');
 export const inputInfo = document.querySelector('.popup__input_type_info');
+export const avatarEditBtn = document.querySelector('.profile__edit-icon');
 
 // --------------------------------------------------------------
 

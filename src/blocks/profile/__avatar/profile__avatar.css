@@ -3,10 +3,12 @@
   height: 120px;
   border-radius: 50%;
   position: relative;
-  cursor: pointer;
   background-image: url(../../../images/thomas-reaubourg-uDA0XFT41-g-unsplash.jpg);
   background-size: cover;
   z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile__avatar::before {
@@ -24,7 +26,7 @@
   background-color: rgba(0, 0, 0, .8);
 }
 
-.profile__avatar:hover .profile__edit-icon {
+.profile__avatar:hover .profile__avatar-edit-btn {
   visibility: visible;
   opacity: 1;
   transition: opacity .5s ease-in-out;
