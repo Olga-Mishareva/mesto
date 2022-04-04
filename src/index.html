@@ -18,7 +18,10 @@
     <main class="content">
       <section class="profile">
         <div class="profile__container">
-          <img class="profile__avatar" src="<%=require('./images/thomas-reaubourg-uDA0XFT41-g-unsplash.jpg')%>" alt="Фото профиля">
+          <!-- <img class="profile__avatar" src="<%=require('./images/thomas-reaubourg-uDA0XFT41-g-unsplash.jpg')%>" alt="Фото профиля"> -->
+         <div class="profile__avatar">
+           <img class="profile__edit-icon" src="<%=require('./images/pen.svg')%>" alt="Иконка редактирования аватара">
+         </div>
           <div class="profile__data">
             <div class="profile__name-container">
               <h1 class="profile__name">Миссис М</h1>
@@ -41,7 +44,10 @@
             <img class="place__image" src="#" alt="">
             <div class="place__title-container">
               <h2 class="place__title"></h2>
-              <button class="place__stroke" type="button"></button>
+              <div class="place__like-container">
+                <button class="place__stroke" type="button"></button>
+                <span class="place__like-counter place__like-counter_visible">0</span>
+              </div>
             </div>
           </li>
         </template>

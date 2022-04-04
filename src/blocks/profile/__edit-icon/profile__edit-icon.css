@@ -1,0 +1,7 @@
+.profile__edit-icon {
+  width: 26px;
+  height: 26px;
+  padding: calc(50% - (26px / 2));
+  visibility: hidden;
+  opacity: 0;
+}
