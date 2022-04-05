@@ -17,6 +17,7 @@ import {
   inputName,
   inputInfo,
   placeBtn,
+  trashBtn,
   // inputCard,
   // inputLink,
 } from "../utils/constants.js";
@@ -46,6 +47,8 @@ formList.forEach((formElement) => {
 
 // ------ popup_edit-profile -----------------------------------------------
 
+let ownerId = '';
+
 // создает класс вставки в DOM
 const userData = new UserInfo({ data: profileData });
 
@@ -54,9 +57,9 @@ api.getUserData()
 .then(res => {
   userData.setUserInfo(res.name, res.about);
   userData.setUserAvatar(res.avatar);
+  ownerId = res._id;
+  // console.log(ownerId)
 });
-
-
 
 // создание попапа редактирования профиля, передает функцию сабмита
 const profilePopup = new PopupWithForm(
@@ -70,8 +73,7 @@ const profilePopup = new PopupWithForm(
       .finally(() => profilePopup.renderLoading(false));
     },
   },
-  ".popup_type_edit-profile"
-);
+  ".popup_type_edit-profile");
 
 profilePopup.setEventListeners();
 
@@ -85,6 +87,8 @@ profileBtn.addEventListener("click", function () {
   formValidators["profile-form"].resetValidation();
 });
 
+// ------ popup_edit-avatar -----------------------------------------------
+
 const avatarPopup = new PopupWithForm(
   {
     handleSubmit: (data) => {
@@ -96,8 +100,7 @@ const avatarPopup = new PopupWithForm(
       .finally(() => avatarPopup.renderLoading(false));
     }
   },
-  '.popup_type_edit-avatar'
-);
+  '.popup_type_edit-avatar');
 
 avatarPopup.setEventListeners();
 
@@ -116,16 +119,16 @@ const cardsGrid = new Section(
       cardsGrid.addItem(createCard(item));
     },
   },
-  ".place-grid__places"
-);
+  ".place-grid__places");
 
 // создание катрочки
 function createCard(item) {
-  const card = new Card(item, "#card", handleCardClick);
-  const cardElement = card.generateCard();
+  const card = new Card(item, "#card", handleCardClick, deleteCard);  // передать внутрь ownerId тоже нельзя, тк будет не с чем сравнивать
+  const cardElement = card.generateCard();  // надо передать isOwner - true/false
 
   return cardElement;
 }
+
 
 // отрисовка массива рандомных 30 карточек
 api.getUsersCards()
@@ -135,33 +138,48 @@ api.getUsersCards()
     const card = {};
     card.name = elem.name;
     card.link = elem.link;
-    usersCards.push(card);
-  });
 
+    if(elem.owner._id !== ownerId) {
+      card.isOwner = false;
+      card.cardId = '';
+    }
+    else {
+      card.isOwner = true;
+      card.cardId = elem._id;
+    };
+    usersCards.push(card);
+
+  });
+  console.log(usersCards)
   cardsGrid.renderItems(usersCards);
 });
+
+
+
 
 
 // сохранеие и вставка новой карточки
 const placePopup = new PopupWithForm(
   {
     handleSubmit: (elem) => {
-      placePopup.renderLoading(true)
+      placePopup.renderLoading(true);
       api.addNewCard({ elem })
       .then(res => {
         const cardData = {};
         cardData.name = res.name;
         cardData.link = res.link;
+        cardData.isOwner = true;
 
         cardsGrid.addItem(createCard(cardData));
       })
       .finally(() => placePopup.renderLoading(false));
     },
   },
-  ".popup_type_add-place"
-);
+  ".popup_type_add-place");
 
 placePopup.setEventListeners();
+
+
 
 // кнопка добавить карточку
 placeBtn.addEventListener("click", () => {
@@ -179,8 +197,28 @@ function handleCardClick(name, link) {
   popupWihtImage.openPopup(name, link);
 }
 
-// --------------------------------------------------------------------------
+// ----- popup_delete-image --------------------------------------------------
 
+const popupDeleteImage = new PopupWithForm(
+{
+  handleSubmit: () => {
+    // api.deleteOwnCard(cardId);
+    console.log('Карточка удалена')
+    // api.getUsersCards();
+  }
+}, '.popup_type_delete-place');
+
+function deleteCard(cardId) {
+  // api.deleteOwnCard(cardId)   // нужно передать cardId
+  // .then(res => {
+  //   console.log(res._id)
+  // })
+}
+
+
+// trashBtn.addEventListener('click', () => {
+//   popupDeleteImage.openPopup()
+// })
 
 
 

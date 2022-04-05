@@ -1,18 +1,6 @@
 .place__trash {
-  background-image: url(../../../images/trash.png);
-  border: none;
-  width: 22px;
-  height: 25px;
-  background-size: cover;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: transparent;
+  display: none;
 }
 
 
-.place__trash:hover {
-  cursor: pointer;
-  opacity: .6;
-  transition: opacity .2s ease-out;
-}
+
