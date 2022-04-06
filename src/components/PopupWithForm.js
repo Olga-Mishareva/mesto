@@ -9,6 +9,9 @@ export default class PopupWithForm extends Popup {
     this._btnText = this._submitBtn.textContent;
   }
 
+  updateSubmitHandler(fn) {
+    this._handleSubmit = fn;
+  }
 
   // собирает данные с полей input в объект
   _getInputValues() {

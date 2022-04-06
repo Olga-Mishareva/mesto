@@ -69,7 +69,6 @@ export default class Api {
   }
 
   addNewCard({ elem }) {
-    console.log(elem)
     return fetch(`${this._options.baseUrl}/cards`, {
       method: 'POST',
       headers: {
@@ -87,6 +86,20 @@ export default class Api {
     .catch(err => console.log(err));
   }
 
+  deleteOwnCard(cardId) {
+    console.log(cardId)
+    return fetch(`${this._options.baseUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => {
+      return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch(err => console.log(err));
+  }
 
 
 }

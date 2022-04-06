@@ -17,7 +17,6 @@ import {
   inputName,
   inputInfo,
   placeBtn,
-  trashBtn,
   // inputCard,
   // inputLink,
 } from "../utils/constants.js";
@@ -47,19 +46,18 @@ formList.forEach((formElement) => {
 
 // ------ popup_edit-profile -----------------------------------------------
 
-let ownerId = '';
+let userId = '';
 
 // создает класс вставки в DOM
 const userData = new UserInfo({ data: profileData });
 
 // подставляет данные с сервера при перезагрузке страницы
 api.getUserData()
-.then(res => {
-  userData.setUserInfo(res.name, res.about);
-  userData.setUserAvatar(res.avatar);
-  ownerId = res._id;
-  // console.log(ownerId)
-});
+  .then(res => {
+    userData.setUserInfo(res.name, res.about);
+    userData.setUserAvatar(res.avatar);
+    // console.log(ownerId)
+  });
 
 // создание попапа редактирования профиля, передает функцию сабмита
 const profilePopup = new PopupWithForm(
@@ -67,15 +65,16 @@ const profilePopup = new PopupWithForm(
     handleSubmit: (data) => {
       profilePopup.renderLoading(true)
       api.editUserData({ data })
-      .then(res => {
-        userData.setUserInfo(res.name, res.about);
-      })
-      .finally(() => profilePopup.renderLoading(false));
+        .then(res => {
+          userData.setUserInfo(res.name, res.about);
+        })
+        .finally(() => profilePopup.renderLoading(false));
     },
   },
   ".popup_type_edit-profile");
 
 profilePopup.setEventListeners();
+
 
 // кнопка открытия ред.профиля
 profileBtn.addEventListener("click", function () {
@@ -89,6 +88,8 @@ profileBtn.addEventListener("click", function () {
 
 // ------ popup_edit-avatar -----------------------------------------------
 
+
+// создание формы изменения аватара
 const avatarPopup = new PopupWithForm(
   {
     handleSubmit: (data) => {
@@ -104,6 +105,8 @@ const avatarPopup = new PopupWithForm(
 
 avatarPopup.setEventListeners();
 
+
+// кнопка изменения аватара
 avatarEditBtn.addEventListener('click', function() {
   avatarPopup.openPopup();
   formValidators["avatar-form"].resetValidation();
@@ -111,52 +114,58 @@ avatarEditBtn.addEventListener('click', function() {
 
 // ------ popup_add-place -----------------------------------------------
 
+// создание формы согласия на удаление карточки
+const popupDeleteImage = new PopupWithForm({}, '.popup_type_delete-place');
+popupDeleteImage.setEventListeners();
+
 
 // создание класса для отрисовки катрочек и добавления в DOM
 const cardsGrid = new Section(
   {
     renderer: (item) => {
-      cardsGrid.addItem(createCard(item));
+      cardsGrid.addItem(item);
     },
   },
-  ".place-grid__places");
+  ".place-grid__places"
+);
+
 
 // создание катрочки
-function createCard(item) {
-  const card = new Card(item, "#card", handleCardClick, deleteCard);  // передать внутрь ownerId тоже нельзя, тк будет не с чем сравнивать
-  const cardElement = card.generateCard();  // надо передать isOwner - true/false
+function createCard(elem) {
+  const card = new Card({
+    name: elem.name,
+    link: elem.link,
+    cardId: elem._id,
+    ownerId: elem.owner._id,
+    userId: userId
+  }, "#card", handleCardClick,
+  (cardId) => {
+    popupDeleteImage.openPopup()
+    popupDeleteImage.updateSubmitHandler(() => {
+      api.deleteOwnCard(cardId)
+        .then(res => {
+          // console.log(res)
+          card.removeCard();
+        })
+    })
+  });
 
+  const cardElement = card.generateCard();
   return cardElement;
 }
 
+// отрисовка массива рандомных 30 карточек происходит, когда мы получаем все данные с асинхронных запросов
+Promise.all([api.getUserData(), api.getUsersCards()])
+  .then(([userData, cards]) => {
+    userId = userData._id;
+    const usersCards = [];
+    // console.log(usersCards)
+    cards.forEach(elem => {
+      usersCards.push(createCard(elem));
+    })
+    cardsGrid.renderItems(usersCards);
 
-// отрисовка массива рандомных 30 карточек
-api.getUsersCards()
-.then(cards => {
-  const usersCards = [];
-  cards.forEach(elem => {
-    const card = {};
-    card.name = elem.name;
-    card.link = elem.link;
-
-    if(elem.owner._id !== ownerId) {
-      card.isOwner = false;
-      card.cardId = '';
-    }
-    else {
-      card.isOwner = true;
-      card.cardId = elem._id;
-    };
-    usersCards.push(card);
-
-  });
-  console.log(usersCards)
-  cardsGrid.renderItems(usersCards);
-});
-
-
-
-
+  })
 
 // сохранеие и вставка новой карточки
 const placePopup = new PopupWithForm(
@@ -164,28 +173,22 @@ const placePopup = new PopupWithForm(
     handleSubmit: (elem) => {
       placePopup.renderLoading(true);
       api.addNewCard({ elem })
-      .then(res => {
-        const cardData = {};
-        cardData.name = res.name;
-        cardData.link = res.link;
-        cardData.isOwner = true;
-
-        cardsGrid.addItem(createCard(cardData));
-      })
-      .finally(() => placePopup.renderLoading(false));
+        .then(res => {
+          cardsGrid.addItem(createCard(res));
+        })
+        .finally(() => placePopup.renderLoading(false));
     },
   },
-  ".popup_type_add-place");
-
+  ".popup_type_add-place"
+);
 placePopup.setEventListeners();
-
-
 
 // кнопка добавить карточку
 placeBtn.addEventListener("click", () => {
   placePopup.openPopup();
   formValidators["add-form"].resetValidation();
 });
+
 
 // ------ popup_show-image -----------------------------------------------
 
@@ -197,28 +200,9 @@ function handleCardClick(name, link) {
   popupWihtImage.openPopup(name, link);
 }
 
-// ----- popup_delete-image --------------------------------------------------
-
-const popupDeleteImage = new PopupWithForm(
-{
-  handleSubmit: () => {
-    // api.deleteOwnCard(cardId);
-    console.log('Карточка удалена')
-    // api.getUsersCards();
-  }
-}, '.popup_type_delete-place');
-
-function deleteCard(cardId) {
-  // api.deleteOwnCard(cardId)   // нужно передать cardId
-  // .then(res => {
-  //   console.log(res._id)
-  // })
-}
 
 
-// trashBtn.addEventListener('click', () => {
-//   popupDeleteImage.openPopup()
-// })
+
 
 
 
