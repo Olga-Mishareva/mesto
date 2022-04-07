@@ -8,7 +8,6 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import {
-  // initialCards,
   profileData,
   settings,
   formValidators,
@@ -17,12 +16,9 @@ import {
   inputName,
   inputInfo,
   placeBtn,
-  // inputCard,
-  // inputLink,
 } from "../utils/constants.js";
 
 // --------------------------------------------------------------------------
-
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
@@ -56,7 +52,6 @@ api.getUserData()
   .then(res => {
     userData.setUserInfo(res.name, res.about);
     userData.setUserAvatar(res.avatar);
-    // console.log(ownerId)
   });
 
 // создание попапа редактирования профиля, передает функцию сабмита
@@ -75,7 +70,6 @@ const profilePopup = new PopupWithForm(
 
 profilePopup.setEventListeners();
 
-
 // кнопка открытия ред.профиля
 profileBtn.addEventListener("click", function () {
   const userIntel = userData.getUserInfo();
@@ -86,8 +80,8 @@ profileBtn.addEventListener("click", function () {
   formValidators["profile-form"].resetValidation();
 });
 
-// ------ popup_edit-avatar -----------------------------------------------
 
+// ------ popup_edit-avatar -----------------------------------------------
 
 // создание формы изменения аватара
 const avatarPopup = new PopupWithForm(
@@ -105,19 +99,18 @@ const avatarPopup = new PopupWithForm(
 
 avatarPopup.setEventListeners();
 
-
 // кнопка изменения аватара
 avatarEditBtn.addEventListener('click', function() {
   avatarPopup.openPopup();
   formValidators["avatar-form"].resetValidation();
 })
 
-// ------ popup_add-place -----------------------------------------------
+
+// =========== popup_add-place ===================================
 
 // создание формы согласия на удаление карточки
 const popupDeleteImage = new PopupWithForm({}, '.popup_type_delete-place');
 popupDeleteImage.setEventListeners();
-
 
 // создание класса для отрисовки катрочек и добавления в DOM
 const cardsGrid = new Section(
@@ -129,22 +122,36 @@ const cardsGrid = new Section(
   ".place-grid__places"
 );
 
-
 // создание катрочки
 function createCard(elem) {
   const card = new Card({
     name: elem.name,
     link: elem.link,
+    likes: elem.likes,
     cardId: elem._id,
     ownerId: elem.owner._id,
     userId: userId
-  }, "#card", handleCardClick,
-  (cardId) => {
+  },
+  "#card", handleCardClick,
+  (cardId) => {                  // handleCardLike
+    if(!card.isLiked()) {
+      api.likeUsersCard(cardId)
+        .then(res => {
+        card.toggleCardLike(res.likes)
+      })
+    }
+    else {
+      api.dislikeUsersCard(cardId)
+        .then(res => {
+          card.toggleCardLike(res.likes)
+        })
+    }
+  },
+  (cardId) => {                     // handleDeleteClick
     popupDeleteImage.openPopup()
     popupDeleteImage.updateSubmitHandler(() => {
-      api.deleteOwnCard(cardId)
+      api.deleteUserCard(cardId)
         .then(res => {
-          // console.log(res)
           card.removeCard();
         })
     })
@@ -158,13 +165,12 @@ function createCard(elem) {
 Promise.all([api.getUserData(), api.getUsersCards()])
   .then(([userData, cards]) => {
     userId = userData._id;
-    const usersCards = [];
-    // console.log(usersCards)
-    cards.forEach(elem => {
-      usersCards.push(createCard(elem));
-    })
-    cardsGrid.renderItems(usersCards);
+    const allUsersCards = [];
 
+    cards.forEach(elem => {                      // для каждой пришедшей с сервера карты вызываем создание карты
+      allUsersCards.push(createCard(elem));
+    })
+    cardsGrid.renderItems(allUsersCards);
   })
 
 // сохранеие и вставка новой карточки

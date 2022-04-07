@@ -9,6 +9,7 @@ export default class PopupWithForm extends Popup {
     this._btnText = this._submitBtn.textContent;
   }
 
+  // получает на вход функцию и заменяет ей стандартный сабмит для попапа удаления карточки
   updateSubmitHandler(fn) {
     this._handleSubmit = fn;
   }

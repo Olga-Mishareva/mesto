@@ -1,23 +1,23 @@
 export default class Api {
   constructor(options) {
-    this._options = options;
-
+    this._baseUrl = options.baseUrl;
   }
 
   getUserData() {
-    return fetch(`${this._options.baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       headers: {
         authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9'
       }
     })
     .then(res => {
       return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+
     })
     .catch(err => console.log(err));
   }
 
   editUserData({ data }) {
-    return fetch(`${this._options.baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: {
         authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9',
@@ -35,7 +35,7 @@ export default class Api {
   }
 
   editUserAvatar(data) {
-    return fetch(`${this._options.baseUrl}/users/me/avatar`, {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
         authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9',
@@ -54,7 +54,7 @@ export default class Api {
   // ========================================================
 
   getUsersCards() {
-    return fetch(`${this._options.baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       headers: {
         authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9'
       }
@@ -69,7 +69,7 @@ export default class Api {
   }
 
   addNewCard({ elem }) {
-    return fetch(`${this._options.baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: {
         authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9',
@@ -86,13 +86,11 @@ export default class Api {
     .catch(err => console.log(err));
   }
 
-  deleteOwnCard(cardId) {
-    console.log(cardId)
-    return fetch(`${this._options.baseUrl}/cards/${cardId}`, {
+  deleteUserCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
-        authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9',
-        'Content-Type': 'application/json'
+        authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9'
       }
     })
     .then(res => {
@@ -101,5 +99,29 @@ export default class Api {
     .catch(err => console.log(err));
   }
 
+  likeUsersCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9'
+      }
+    })
+    .then(res => {
+      return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch(err => console.log(err));
+  }
 
+  dislikeUsersCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: 'a10d74b1-4032-4ec5-9837-4b98c81dc7b9'
+      }
+    })
+    .then(res => {
+      return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch(err => console.log(err));
+  }
 }
