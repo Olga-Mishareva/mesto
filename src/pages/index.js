@@ -56,6 +56,7 @@ const profilePopup = new PopupWithForm(
         .then(res => {
           userIntel.setUserInfo(res.name, res.about);
         })
+        .catch(err => console.log(err))
         .finally(() => profilePopup.renderLoading(false));
     },
   },
@@ -85,6 +86,7 @@ const avatarPopup = new PopupWithForm(
       .then(res => {
         userIntel.setUserAvatar(res.avatar);
       })
+      .catch(err => console.log(err))
       .finally(() => avatarPopup.renderLoading(false));
     }
   },
@@ -131,13 +133,15 @@ function createCard(elem) {
       api.likeUsersCard(cardId)
         .then(res => {
         card.toggleCardLike(res.likes)
-      })
+        })
+        .catch(err => console.log(err));
     }
     else {
       api.dislikeUsersCard(cardId)
         .then(res => {
           card.toggleCardLike(res.likes)
         })
+        .catch(err => console.log(err));
     }
   },
   (cardId) => {                     // handleDeleteClick
@@ -147,6 +151,7 @@ function createCard(elem) {
         .then(res => {
           card.removeCard();
         })
+        .catch(err => console.log(err));
     })
   });
 
@@ -169,6 +174,7 @@ Promise.all([api.getUserData(), api.getUsersCards()])
     allUsersCards.reverse();
     cardsGrid.renderItems(allUsersCards);
   })
+  .catch(err => console.log(err));
 
 // сохранеие и вставка новой карточки
 const placePopup = new PopupWithForm(
@@ -179,6 +185,7 @@ const placePopup = new PopupWithForm(
         .then(res => {
           cardsGrid.addItem(createCard(res));
         })
+        .catch(err => console.log(err))
         .finally(() => placePopup.renderLoading(false));
     },
   },
