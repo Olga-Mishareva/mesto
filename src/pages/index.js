@@ -45,14 +45,7 @@ formList.forEach((formElement) => {
 let userId = '';
 
 // создает класс вставки в DOM
-const userData = new UserInfo({ data: profileData });
-
-// подставляет данные с сервера при перезагрузке страницы
-api.getUserData()
-  .then(res => {
-    userData.setUserInfo(res.name, res.about);
-    userData.setUserAvatar(res.avatar);
-  });
+const userIntel = new UserInfo({ data: profileData });
 
 // создание попапа редактирования профиля, передает функцию сабмита
 const profilePopup = new PopupWithForm(
@@ -61,7 +54,7 @@ const profilePopup = new PopupWithForm(
       profilePopup.renderLoading(true)
       api.editUserData({ data })
         .then(res => {
-          userData.setUserInfo(res.name, res.about);
+          userIntel.setUserInfo(res.name, res.about);
         })
         .finally(() => profilePopup.renderLoading(false));
     },
@@ -72,9 +65,9 @@ profilePopup.setEventListeners();
 
 // кнопка открытия ред.профиля
 profileBtn.addEventListener("click", function () {
-  const userIntel = userData.getUserInfo();
-  inputName.value = userIntel.username;
-  inputInfo.value = userIntel.about;
+  const userInfos = userIntel.getUserInfo();
+  inputName.value = userInfos.username;
+  inputInfo.value = userInfos.about;
 
   profilePopup.openPopup();
   formValidators["profile-form"].resetValidation();
@@ -90,7 +83,7 @@ const avatarPopup = new PopupWithForm(
       avatarPopup.renderLoading(true);
       api.editUserAvatar(data)
       .then(res => {
-        userData.setUserAvatar(res.avatar);
+        userIntel.setUserAvatar(res.avatar);
       })
       .finally(() => avatarPopup.renderLoading(false));
     }
@@ -161,12 +154,15 @@ function createCard(elem) {
   return cardElement;
 }
 
-// отрисовка массива рандомных 30 карточек происходит, когда мы получаем все данные с асинхронных запросов
+// отрисовка данных профиля и массива рандомных 30 карточек происходит,
+// когда мы получаем все данные с асинхронных запросов
 Promise.all([api.getUserData(), api.getUsersCards()])
   .then(([userData, cards]) => {
+    userIntel.setUserInfo(userData.name, userData.about);    // подставляет данные с сервера при перезагрузке страницы
+    userIntel.setUserAvatar(userData.avatar);
     userId = userData._id;
-    const allUsersCards = [];
 
+    const allUsersCards = [];
     cards.forEach(elem => {                      // для каждой пришедшей с сервера карты вызываем создание карты
       allUsersCards.push(createCard(elem));
     })
