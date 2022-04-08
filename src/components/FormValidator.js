@@ -7,6 +7,8 @@ export default class FormValidator {
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass;
     this._formElement = formElement;
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    this._submitBtn = this._formElement.querySelector(this._submitButtonSelector);
   }
 
   // включает валидацию
@@ -17,9 +19,6 @@ export default class FormValidator {
   // в кажд. форме находит все инпуты и на кажд. вешает обработчик события input
   // для кажд. нового нажатия вызывает ф.валидации и ф.контроля кнопки submit
   _setEventListeners() {
-    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-    this._submitBtn = this._formElement.querySelector(this._submitButtonSelector);
-
     this._switchSubmitButtonState();
 
     this._inputList.forEach((inputElement) => {
