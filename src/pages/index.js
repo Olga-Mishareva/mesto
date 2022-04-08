@@ -166,6 +166,7 @@ Promise.all([api.getUserData(), api.getUsersCards()])
     cards.forEach(elem => {                      // для каждой пришедшей с сервера карты вызываем создание карты
       allUsersCards.push(createCard(elem));
     })
+    allUsersCards.reverse();
     cardsGrid.renderItems(allUsersCards);
   })
 
