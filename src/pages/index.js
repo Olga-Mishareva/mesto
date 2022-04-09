@@ -55,6 +55,7 @@ const profilePopup = new PopupWithForm(
       api.editUserData({ data })
         .then(res => {
           userIntel.setUserInfo(res.name, res.about);
+          profilePopup.closePopup();
         })
         .catch(err => console.log(err))
         .finally(() => profilePopup.renderLoading(false));
@@ -85,6 +86,7 @@ const avatarPopup = new PopupWithForm(
       api.editUserAvatar(data)
       .then(res => {
         userIntel.setUserAvatar(res.avatar);
+        avatarPopup.closePopup();
       })
       .catch(err => console.log(err))
       .finally(() => avatarPopup.renderLoading(false));
@@ -150,6 +152,7 @@ function createCard(elem) {
       api.deleteUserCard(cardId)
         .then(res => {
           card.removeCard();
+          popupDeleteImage.closePopup();
         })
         .catch(err => console.log(err));
     })
@@ -184,6 +187,7 @@ const placePopup = new PopupWithForm(
       api.addNewCard({ elem })
         .then(res => {
           cardsGrid.addItem(createCard(res));
+          placePopup.closePopup();
         })
         .catch(err => console.log(err))
         .finally(() => placePopup.renderLoading(false));

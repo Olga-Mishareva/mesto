@@ -10,7 +10,6 @@ export default class Api {
   }
 
   getUserData() {
-    console.log(this._authorization)
     return fetch(`${this._baseUrl}/users/me`, {
       headers: {
         authorization: this._authorization
