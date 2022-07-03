@@ -1,29 +1,29 @@
-# Проект Mesto
-##### Курсовая работа №9 для Яндекс.Практикум
+# Project Mesto. Frontend
+
 ---
 
-Прокет о самых красивых уголках России.
+The social network for communication with pictures and likes.
 
-Сайт адаптирован под разрешение от 320px до 1280px и более.
-Есть возможность менять имя и описание профиля, добавлять, удалять и лайкать фотографии, открывать фотографии большого размера. Все формы валидируются при помощи JS. Применены принципы объектно-ориентированного программирования.
+The site is adapted for resolution from 320px to 1280px and more. It is possible to change profile name and description, add, delete and like photos as well as open large-size photos. All forms are validated using JS. The principles of object-oriented programming are applied.
 
-В этой курсовой работе проект подключен к серверу. Изменение иформации пользователя и его аватара осуществляется через изменение данных на сервере. Карточки подгружаются с сервера из общей базы данных группы. Любой карточке можно поставить или снять лайк. Удалять можно только свои карточки.
+The project is connected to a server. Changes to user information and his avatar are made by changing data on the server. The cards are loaded from the server from the group's common database. Any user can give or take away a like to any card. Only your own cards can be deleted.
 
-### Использованные технологии
+### Tech stack
 
 * HTML
 * CSS
 * JS
+* Webpack
 
-### Реальзовано с помощью
+### Implemented with
 
-* Адаптивная верстка / Медиа-запросы
+* Adaptive layout / Media queries
 * Grid / Flex
-* БЭМ-методология
+* BEM methodology
 * Figma
-* ООП
-* Сервер 
+* OOP
+* API 
 
 
 
-[Ссылка на проект](https://olga-mishareva.github.io/mesto/)
+[Show me the project](https://olga-mishareva.github.io/mesto/)
